@@ -7,7 +7,7 @@ export const POST = async ({ request }) => {
 		const response = await fetch('https://api.arliai.com/v1/chat/completions', {
 			method: 'POST',
 			headers: {
-				Authorization: '',
+				Authorization: 'Bearer 84a05251-e1f5-48c1-b4d5-5e2f091bc8cc',
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({

@@ -40,7 +40,7 @@
 					headers: {
 						Authorization: 'Bearer 84a05251-e1f5-48c1-b4d5-5e2f091bc8cc',
 						// Authorization:
-						// 	'Bearer xai-ibjrp139zQj3BqJNY13g63VNOLo2oj6OACcU40oSyGu4DQ97tmlCWsyqkaxxSS3H5MtVXLTnVacwx48S',
+
 						'Content-Type': 'application/json'
 					},
 					body: JSON.stringify({
