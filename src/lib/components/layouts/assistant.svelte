@@ -38,9 +38,7 @@
 				{
 					method: 'POST',
 					headers: {
-						Authorization: 'Bearer 84a05251-e1f5-48c1-b4d5-5e2f091bc8cc',
-						// Authorization:
-
+						Authorization: '',
 						'Content-Type': 'application/json'
 					},
 					body: JSON.stringify({
