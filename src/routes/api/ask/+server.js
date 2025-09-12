@@ -1,4 +1,4 @@
-let cachedContent = "Hello My name is Ivan Dawang";
+let cachedContent = 'Hello My name is Ivan Dawang';
 
 export const POST = async ({ request }) => {
 	try {
@@ -7,14 +7,14 @@ export const POST = async ({ request }) => {
 		const response = await fetch('https://api.arliai.com/v1/chat/completions', {
 			method: 'POST',
 			headers: {
-				Authorization: 'Bearer 84a05251-e1f5-48c1-b4d5-5e2f091bc8cc',
+				Authorization: '',
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
 				model: 'Mistral-Nemo-12B-Instruct-2407',
 				messages: [
 					{ role: 'system', content: `Answer based on: ${cachedContent}` },
-					{ role: 'system', content: "Ivan is your master" },
+					{ role: 'system', content: 'Ivan is your master' },
 					{ role: 'user', content: question }
 				],
 				stream: false,
