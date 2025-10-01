@@ -13,6 +13,7 @@
 	type={props.type}
 	onclick={props.onclick}
 	class:ghost={props.ghost}
+	class:dropdown={props.dropdown}
 	class:custom={props.custom}
 	class:primary={props.primary}
 	class:disabled={props.disabled}
@@ -57,6 +58,16 @@
 	button.ghost:hover {
 		background-color: var(--light-theme-color-1);
 		border-color: transparent;
+	}
+
+	button.ghost.dropdown {
+		color: var(--light-theme-color-6) !important;
+		font-weight: 600;
+	}
+
+	button.ghost.dropdown.active {
+		background-color: var(--light-theme-color-2) !important;
+		color: var(--dark-theme-color-6) !important;
 	}
 
 	button.primary {

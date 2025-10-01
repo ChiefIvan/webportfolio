@@ -1,6 +1,7 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onDestroy } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import { domSize } from '$lib/domSizeStore';
 
 	import NavItem from '$lib/components/shared/navItem.svelte';
 	import Anchor from '$lib/components/shared/anchor.svelte';
@@ -10,25 +11,23 @@
 	import Projects from '../icons/projects.svelte';
 	import Blogs from '../icons/blogs.svelte';
 
+	let size = $state();
 	let isScreenSmall = $state(false);
 	let isNavOpen = $state(false);
 
-	const checkScreenSize = (e) => {
-		isScreenSmall = window.innerWidth <= 576 ? true : false;
-	};
+	$effect(() => {
+		isScreenSmall = size.width < 576 ? true : false;
+	});
+
+	const unsubscibe = domSize.subscribe((v) => (size = v));
+	onDestroy(unsubscibe);
 
 	const handleNavClose = (e) => {
-		if (isScreenSmall) {
+		if (size.width < 576) {
 			isNavOpen = false;
 		}
 	};
-
-	onMount(() => {
-		checkScreenSize();
-	});
 </script>
-
-<svelte:window onresize={checkScreenSize} />
 
 {#if isNavOpen}
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -109,7 +108,7 @@
 			z-index: 3;
 			overflow-y: auto;
 			overflow-x: hidden;
-			background-color: rgba(0, 0, 0, 0.7);
+			background-color: rgba(0, 0, 0, 0.8);
 			backdrop-filter: blur(5px);
 			-webkit-backdrop-filter: blur(5px);
 		}
@@ -128,13 +127,12 @@
 			border-bottom: none;
 			height: 100dvh;
 			overflow-y: hidden;
-			z-index: 3;
 			border-bottom-right-radius: 3rem;
 			border-top-right-radius: 3rem;
 		}
 
 		div.open {
-			width: 70%;
+			width: 75%;
 		}
 
 		div.nav-content-wrapper-mobile {

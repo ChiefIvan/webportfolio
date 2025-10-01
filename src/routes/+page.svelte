@@ -1,4 +1,11 @@
+<script module>
+	export const prerender = true; // SvelteKit reads this once
+</script>
+
 <script>
+	import { domSize } from '$lib/domSizeStore';
+	import { onDestroy } from 'svelte';
+
 	import Author from '$lib/assets/author.jpg';
 	import Card from '$lib/components/shared/card.svelte';
 	import Button from '$lib/components/shared/button.svelte';
@@ -6,6 +13,10 @@
 	import WebDev from '$lib/assets/web_development.jpg';
 	import More from '$lib/assets/more.jpg';
 	import CardWrapper from '$lib/components/layouts/cardWrapper.svelte';
+	import Dropdown from '$lib/components/icons/dropdown.svelte';
+
+	let size = $state();
+	let isOffersExpanded = $state(false);
 
 	// const props = $props();
 	const { log, error } = console;
@@ -27,12 +38,19 @@
 		}
 	];
 
+	const unsubscibe = domSize.subscribe((v) => (size = v));
+	onDestroy(unsubscibe);
+
 	const scrollToFooter = () => {
 		const element = document.getElementById('footer');
 
 		if (element) {
 			element.scrollIntoView({ behavior: 'smooth' });
 		}
+	};
+
+	const offersExpandHandler = () => {
+		isOffersExpanded = !isOffersExpanded;
 	};
 </script>
 
@@ -61,9 +79,16 @@
 	<h2>BE MY CLIENT TODAY</h2>
 	<p>The Services and Offers I Provide to My Clients,</p>
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div class="offers-wrapper">
+	<div class:expanded={isOffersExpanded} class="offers-wrapper">
 		<CardWrapper {cardItems} columns="3"></CardWrapper>
 	</div>
+	{#if size.width < 576}
+		<div class:is-expanded={isOffersExpanded} class="button-wrapper">
+			<Button ghost onclick={offersExpandHandler}>
+				<Dropdown></Dropdown>
+			</Button>
+		</div>
+	{/if}
 </section>
 
 <style>
@@ -287,6 +312,22 @@
 		div.offers-wrapper {
 			width: inherit;
 			margin-top: 2rem;
+
+			@media (max-width: 576px) {
+				height: 30rem;
+				overflow: hidden;
+				-webkit-mask: linear-gradient(white 25%, transparent);
+				mask: linear-gradient(white 25%, transparent);
+			}
+		}
+
+		div.offers-wrapper.expanded {
+			@media (max-width: 576px) {
+				height: auto;
+				overflow: hidden;
+				-webkit-mask: none;
+				mask: none;
+			}
 		}
 	}
 
@@ -297,5 +338,9 @@
 	section.section-2 {
 		flex-direction: column;
 		max-width: 50rem;
+
+		div.button-wrapper.is-expanded {
+			transform: rotate(180deg);
+		}
 	}
 </style>

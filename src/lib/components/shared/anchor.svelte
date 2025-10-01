@@ -42,7 +42,7 @@
 		align-items: center;
 		column-gap: 0.5rem;
 		border-bottom: 1px solid var(--light-theme-color-2);
-		padding-inline: 0.5rem;
+		padding-inline: 1rem;
 		width: 100%;
 		color: var(--light-theme-color-6);
 		font-weight: 800;

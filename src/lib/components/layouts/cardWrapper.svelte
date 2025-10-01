@@ -18,11 +18,20 @@
 
 <svelte:body onmousemove={handleMouseEvent} />
 
-<div class="wrapper" style={`columns: ${props.columns || 4};`}>
+<div
+	class="wrapper"
+	class:list={props.subFilter ? props.subFilter != 'list' : false}
+	style={`columns: ${props.columns || 4};`}
+>
 	{#each props.cardItems as item}
 		<div class="card-wrapper">
-			<a href="/projects">
-				<Card src={item.src} title={item.title} description={item.description}></Card>
+			<a href={'/projects' + (item.link || '')} data-sveltekit-prefetch>
+				<Card
+					subFilter={props.subFilter}
+					src={item.src}
+					title={item.title}
+					description={item.description}
+				></Card>
 			</a>
 		</div>
 	{/each}
@@ -64,6 +73,20 @@
 			background-size: cover;
 			background-attachment: fixed;
 			background-image: radial-gradient(250px circle at var(--x) var(--y), orangered, transparent);
+
+			&:hover {
+				background-color: rgba(255, 68, 0, 0.329) !important;
+			}
+		}
+	}
+
+	div.wrapper.list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+
+		& > div.card-wrapper {
+			background: none !important;
 
 			&:hover {
 				background-color: rgba(255, 68, 0, 0.329) !important;

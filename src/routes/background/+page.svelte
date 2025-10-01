@@ -1,3 +1,7 @@
+<script module>
+	export const prerender = true; // SvelteKit reads this once
+</script>
+
 <script>
 	import { tooltip } from '$lib/tooltip';
 

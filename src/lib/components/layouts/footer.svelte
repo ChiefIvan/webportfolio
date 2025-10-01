@@ -51,7 +51,7 @@
 
 		div.footer-content-wrapper {
 			margin-top: 4.5rem;
-			padding-block: 4rem;
+			padding-block: 3rem;
 
 			div.header-wrapper {
 				display: flex;

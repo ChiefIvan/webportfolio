@@ -13,23 +13,26 @@ async function fetchDataFromDatabase() {
 		{
 			title: 'DocuTracker',
 			description: 'Crafting unique designs tailored to your needs.',
-			src: '/assets/mobile_development.jpg'
+			src: '',
+			link: '/docutracker'
 		},
 		{
 			title: 'EventSync',
 			description: 'Building innovative apps for a seamless digital experience.',
-			src: '/assets/web_development.jpg'
+			src: '',
+			link: '/eventsync'
 		},
 		{
-			src: '/assets/more.jpg'
+			title: 'Banner',
+			src: ''
 		},
 		{
-			src: '/assets/more.jpg'
+			src: ''
 		},
 		{
 			title: 'AI',
 			description: 'Harnessing the power of AI to create intelligent solutions.',
-			src: '/assets/more.jpg'
+			src: ''
 		}
 	];
 	return { samples: samples };

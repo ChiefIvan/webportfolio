@@ -2,10 +2,12 @@
 	const props = $props();
 </script>
 
-<div class="wrapper" style={`height: ${props.description || 'auto'};`}>
-	<div class="img-wrapper">
-		<img src={props.src} alt="project img placeholder" />
-	</div>
+<div class="wrapper">
+	{#if props.subFilter != 'grid'}
+		<div class="img-wrapper">
+			<img src={props.src} alt="project img placeholder" />
+		</div>
+	{/if}
 	<div class="content-wrapper">
 		{#if props.title}
 			<h3>{props.title}</h3>
