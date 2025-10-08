@@ -8,7 +8,6 @@ export function focusTrap(node, options = {}) {
 		...options
 	});
 
-	// activate when mounted
 	trap.activate();
 
 	return {

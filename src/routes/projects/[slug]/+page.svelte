@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte';
 	import { fly, fade } from 'svelte/transition';
 	import { focusTrap } from '$lib/actions/focusTrap.js';
 	const props = $props();
@@ -6,6 +7,10 @@
 	const handleclick = () => {
 		document.body.classList.remove('no-scroll');
 	};
+
+	onMount(() => {
+		document.body.classList.add('no-scroll');
+	});
 </script>
 
 <div class="overlay" in:fade={{ duration: 200 }} out:fade={{ duration: 200, delay: 500 }}></div>

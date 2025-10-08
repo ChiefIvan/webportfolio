@@ -1,9 +1,9 @@
 export async function load({ params, request }) {
 	const user = {
-		bio: `I'm Ivan Paulin Dawang, 23 years old, an Instructor at Davao Oriental State University
-				(DOrSU), where I also earned my Bachelor's degree in Information Technology. As a fresh
-				graduate with now have a six months of teaching experience, I'm passionate about sharing
-				knowledge and inspiring others. Beyond the classroom, I'm a developer and designer,
+		bio: `Hi!, My name is Ivan, a 23 years old Instructor at Davao Oriental State University
+				(DOrSU), where I also earned my Bachelor's degree in Information Technology. with a 
+				year of teaching experience, I'm passionate about sharing knowledge and inspiring others.
+				Beyond the classroom, I'm a developer and designer,
 				specializing in mobile/web development and an enthusiastic explorer of artificial
 				intelligence. My curiosity drives me to embrace new challenges and continuously expand my
 				skill set. During my internship, I gained hands-on experience in programming, technical

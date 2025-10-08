@@ -158,9 +158,12 @@
 
 	@media (max-width: 576px) {
 		section {
+			margin-top: 2rem !important;
+
 			div.hero-wrapper {
 				display: flex !important;
 				flex-direction: column;
+				padding: 1rem;
 
 				div.iw1 {
 					display: flex;

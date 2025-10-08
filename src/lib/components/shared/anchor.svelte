@@ -10,6 +10,7 @@
 	class:active={$page.url.pathname === props.link ||
 		$page.url.pathname.startsWith(props.link + '/')}
 	class:nav={props.nav}
+	class:ghost={props.ghost}
 	href={props.link}
 	data-sveltekit-prefetch
 >
@@ -28,6 +29,12 @@
 		height: inherit;
 		border-bottom: 2px solid transparent;
 		transition: border-color 300ms;
+	}
+
+	a.ghost {
+		display: block;
+		text-decoration: none;
+		border-bottom: none;
 	}
 
 	a.nav:hover {

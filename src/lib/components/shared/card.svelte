@@ -10,7 +10,7 @@
 	{/if}
 	<div class="content-wrapper">
 		{#if props.title}
-			<h3>{props.title}</h3>
+			<h4>{props.title}</h4>
 		{/if}
 		{#if props.description}
 			<p>
@@ -56,7 +56,7 @@
 		div.content-wrapper {
 			padding: 1rem;
 
-			h3 {
+			h4 {
 				font-family: 'RobotoCondensed', Arial, Helvetica, sans-serif;
 				font-size: 1.3rem;
 				color: var(--dark-theme-color-5);

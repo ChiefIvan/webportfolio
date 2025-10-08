@@ -1,6 +1,7 @@
 <script>
 	import { page } from '$app/stores';
 	import Card from '../shared/card.svelte';
+	import Anchor from '../shared/anchor.svelte';
 
 	const props = $props();
 	const { log, error } = console;
@@ -31,14 +32,14 @@
 >
 	{#each props.cardItems as item}
 		<div class="card-wrapper">
-			<a href={'/projects' + (item.link || '')} onclick={handleclick} data-sveltekit-prefetch>
+			<Anchor ghost link={'/projects' + (item.link || '')} onclick={handleclick}>
 				<Card
 					subFilter={props.subFilter}
 					src={item.src}
 					title={item.title}
 					description={item.description}
 				></Card>
-			</a>
+			</Anchor>
 		</div>
 	{/each}
 </div>
@@ -68,11 +69,6 @@
 			border-radius: 6px;
 			padding: 0.3rem;
 			margin-bottom: 0.5rem;
-
-			a {
-				display: block;
-				text-decoration: none;
-			}
 		}
 
 		& > div.card-wrapper {

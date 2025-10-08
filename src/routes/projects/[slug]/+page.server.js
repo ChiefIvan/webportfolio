@@ -5,5 +5,5 @@ export const load = async ({ params }) => {
 
 	if (params.slug == 'docutracker' || params.slug == 'eventsync') return { params: params.slug };
 
-	error(404, 'Project not found!');
+	error(404, `${params.slug} not found!`);
 };
