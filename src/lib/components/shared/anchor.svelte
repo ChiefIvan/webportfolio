@@ -1,5 +1,5 @@
 <script>
-	import { page } from '$app/state';
+	import { page } from '$app/stores';
 
 	const props = $props();
 </script>
@@ -7,9 +7,11 @@
 <a
 	class:isScreenSmall={props.isScreenSmall}
 	onclick={props.onclick}
-	class:active={page.url.pathname === props.link}
+	class:active={$page.url.pathname === props.link ||
+		$page.url.pathname.startsWith(props.link + '/')}
 	class:nav={props.nav}
 	href={props.link}
+	data-sveltekit-prefetch
 >
 	{#if props.isScreenSmall && props.icon}
 		{@render props.icon()}

@@ -1,7 +1,3 @@
-<script module>
-	export const prerender = true; // SvelteKit reads this once
-</script>
-
 <script>
 	import { domSize } from '$lib/domSizeStore';
 	import { onDestroy } from 'svelte';
@@ -80,7 +76,7 @@
 	<p>The Services and Offers I Provide to My Clients,</p>
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div class:expanded={isOffersExpanded} class="offers-wrapper">
-		<CardWrapper {cardItems} columns="3"></CardWrapper>
+		<CardWrapper default {cardItems} columns="3"></CardWrapper>
 	</div>
 	{#if size.width < 576}
 		<div class:is-expanded={isOffersExpanded} class="button-wrapper">

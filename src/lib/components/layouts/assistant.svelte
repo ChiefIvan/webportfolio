@@ -1,7 +1,7 @@
 <script>
 	import { tick } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { autosize } from '$lib/autosize';
+	import { autosize } from '$lib/actions/autosize';
 
 	import Button from '$lib/components/shared/button.svelte';
 	import Message from '$lib/components/icons/sparkle.svelte';
@@ -59,15 +59,8 @@
 					messages: [
 						{
 							role: 'system',
-							content: "You're an assistant"
-						},
-						{
-							role: 'system',
-							content: "Your master's name is Ivan"
-						},
-						{
-							role: 'system',
-							content: "You're only going to answer if the information is all about your master"
+							content:
+								"You're an assistant, your master's name is Ivan, you're only going to answer if the information is all about your master"
 						},
 						{
 							role: 'user',
@@ -99,7 +92,7 @@
 	};
 </script>
 
-<div class:expanded={isOpen} class="assistant-overlay">
+<div id="assistant-overlay" class:expanded={isOpen} class="assistant-overlay">
 	<div class="assistant-wrapper">
 		{#if isOpen}
 			<div class="message-wrapper">
@@ -157,7 +150,15 @@
 		{/if}
 
 		<div class="button">
-			<Button onclick={() => (isOpen = !isOpen)} custom radius="5rem" gap="0.5rem">
+			<Button
+				onclick={() => {
+					isOpen = !isOpen;
+					document.getElementById('assistant-overlay').classList.remove('reduce-index');
+				}}
+				custom
+				radius="5rem"
+				gap="0.5rem"
+			>
 				<Message></Message>
 				<span>Chat with Assistant</span>
 			</Button>
@@ -170,7 +171,7 @@
 		position: fixed;
 		right: 0rem;
 		bottom: 0rem;
-		z-index: 999;
+		z-index: 3;
 		display: flex;
 
 		div.assistant-wrapper {

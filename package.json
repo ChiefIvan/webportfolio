@@ -25,6 +25,7 @@
 		"@iconify-json/simple-icons": "^1.2.49",
 		"@iconify/svelte": "^5.0.1",
 		"@prisma/client": "^6.12.0",
+		"focus-trap": "^7.6.5",
 		"openai": "^4.89.0",
 		"puppeteer": "^24.4.0",
 		"tippy.js": "^6.3.7"

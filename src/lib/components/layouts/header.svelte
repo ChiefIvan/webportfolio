@@ -27,6 +27,11 @@
 			isNavOpen = false;
 		}
 	};
+
+	const handleNavOpen = (e) => {
+		isNavOpen = !isNavOpen;
+		document.getElementById('assistant-overlay').classList.add('reduce-index');
+	};
 </script>
 
 {#if isNavOpen}
@@ -43,7 +48,7 @@
 <header class:is-open={isNavOpen}>
 	{#if isScreenSmall}
 		<div class="nav-content-wrapper-mobile">
-			<Button ghost onclick={() => (isNavOpen = !isNavOpen)} aria-label="Toggle navigation">
+			<Button ghost onclick={handleNavOpen} aria-label="Toggle navigation">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="24"
@@ -127,12 +132,12 @@
 			border-bottom: none;
 			height: 100dvh;
 			overflow-y: hidden;
-			border-bottom-right-radius: 3rem;
-			border-top-right-radius: 3rem;
+			border-bottom-right-radius: 1rem;
+			border-top-right-radius: 1rem;
 		}
 
 		div.open {
-			width: 75%;
+			width: 70%;
 		}
 
 		div.nav-content-wrapper-mobile {

@@ -87,6 +87,14 @@ div.footer-content-wrapper {
 	margin: auto;
 }
 
+body.no-scroll {
+	overflow: hidden;
+}
+
+div.reduce-index {
+	z-index: 2 !important;
+}
+
 @media (max-width: 1024px) {
 	div.main-content-wrapper,
 	div.nav-content-wrapper,

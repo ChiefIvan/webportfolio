@@ -1,4 +1,5 @@
 <script>
+	import { page } from '$app/stores';
 	import Card from '../shared/card.svelte';
 
 	const props = $props();
@@ -14,6 +15,11 @@
 			el.style.setProperty('--y', `${y}px`);
 		});
 	};
+
+	const handleclick = (e) => {
+		if (props.default) return;
+		document.body.classList.add('no-scroll');
+	};
 </script>
 
 <svelte:body onmousemove={handleMouseEvent} />
@@ -25,7 +31,7 @@
 >
 	{#each props.cardItems as item}
 		<div class="card-wrapper">
-			<a href={'/projects' + (item.link || '')} data-sveltekit-prefetch>
+			<a href={'/projects' + (item.link || '')} onclick={handleclick} data-sveltekit-prefetch>
 				<Card
 					subFilter={props.subFilter}
 					src={item.src}

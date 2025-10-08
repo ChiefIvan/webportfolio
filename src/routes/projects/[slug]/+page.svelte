@@ -1,14 +1,22 @@
-<script module>
-	export const prerender = true; // SvelteKit reads this once
-</script>
-
 <script>
-	import { fly } from 'svelte/transition';
+	import { fly, fade } from 'svelte/transition';
+	import { focusTrap } from '$lib/actions/focusTrap.js';
 	const props = $props();
+
+	const handleclick = () => {
+		document.body.classList.remove('no-scroll');
+	};
 </script>
 
-<div in:fly={{ x: 500, duration: 700 }} out:fly={{ x: 500, duration: 800 }}>
-	<a href="/projects">← Back to projects</a>
+<div class="overlay" in:fade={{ duration: 200 }} out:fade={{ duration: 200, delay: 500 }}></div>
+<div
+	class="content-wrapper"
+	in:fly={{ x: 500, duration: 600, delay: 300 }}
+	out:fly={{ x: 500, duration: 800 }}
+	use:focusTrap
+>
+	<a href="/projects" onclick={handleclick}>← Back to projects</a>
+	<button>Hello</button>
 	<h1>{props.data.params}</h1>
 	Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis suscipit ipsam velit quidem voluptatum
 	at aliquid expedita cumque atque quas! Et accusamus explicabo est commodi. Obcaecati omnis porro illum.
@@ -50,7 +58,19 @@
 </div>
 
 <style>
-	div {
+	div.overlay {
+		position: fixed;
+		inset: 0;
+		z-index: 99999;
+		background-color: rgba(0, 0, 0, 0.8);
+
+		@media (max-width: 768px) {
+			backdrop-filter: blur(5px);
+			-webkit-backdrop-filter: blur(5px);
+		}
+	}
+
+	div.content-wrapper {
 		background-color: white;
 		position: fixed;
 		top: 0;
@@ -59,11 +79,15 @@
 		z-index: 99999;
 		overflow: auto;
 		padding: 1rem;
-		width: 40%;
+		width: 70%;
 		color: var(--light-theme-color-6);
+		border-bottom-left-radius: 1rem;
+		border-top-left-radius: 1rem;
 
 		@media (max-width: 768px) {
 			width: 100%;
+			border-bottom-left-radius: 0rem;
+			border-top-left-radius: 0rem;
 		}
 	}
 </style>
