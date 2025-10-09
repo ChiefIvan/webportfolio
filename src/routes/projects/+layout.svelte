@@ -12,6 +12,7 @@
 	import List from '$lib/components/icons/list.svelte';
 	import Dropdown from '$lib/components/shared/dropdown.svelte';
 	import DropdownIcon from '$lib/components/icons/dropdown.svelte';
+	import SubDashboard from '$lib/components/shared/subDashboard.svelte';
 
 	const { data, error, children } = $props();
 	const positions = new Map();
@@ -93,66 +94,60 @@
 	{@render children({ key: $page.url.pathname })}
 {/if}
 
-<div class="project-wrapper">
-	<h2>My Works</h2>
-	<div class="filter-wrapper">
-		<div class="main-filters">
-			<h4>Filters:</h4>
-			{#if isScreenSmall}
-				<Button primary padding="0.2rem 1rem" onclick={filterExpandHandler}>
-					{filterState}
-					<DropdownIcon></DropdownIcon>
-				</Button>
-				<Dropdown top="3rem" left="3.2rem" expanded={isFilterExpanded}>
-					{#each ['all', 'programming', 'designing', 'AI'] as choice (choice)}
-						<li>
-							<Button
-								width="12rem"
-								justifyContent="flex-start"
-								active={choice == filterState}
-								onclick={() => handleFilterClick(choice)}
-								dropdown
-								ghost
-							>
-								{choice}
-							</Button>
-						</li>
-					{/each}
-				</Dropdown>
-			{:else}
-				<Button primary active={filterState == 'all'} onclick={() => handleFilterClick('all')}
-					>all</Button
-				>
-				<Button
-					primary
-					active={filterState == 'programming'}
-					onclick={() => handleFilterClick('programming')}>programming</Button
-				>
-				<Button
-					primary
-					active={filterState == 'designing'}
-					onclick={() => handleFilterClick('designing')}>designing</Button
-				>
-				<Button primary active={filterState == 'ai'} onclick={() => handleFilterClick('ai')}
-					>AI</Button
-				>
-			{/if}
-		</div>
-		<div class="sub-filters">
-			<Button
-				ghost
-				padding="0"
-				onclick={() => (subFilter = subFilter === 'grid' ? 'list' : 'grid')}
-			>
-				{#if subFilter === 'grid'}
-					<List></List>
-				{:else}
-					<Grid></Grid>
-				{/if}
+<SubDashboard title="My Works">
+	<div class="main-filters">
+		<h4>Filters:</h4>
+		{#if isScreenSmall}
+			<Button primary radius="0.5rem" padding="0.2rem 1rem" onclick={filterExpandHandler}>
+				<span>{filterState}</span>
+				<DropdownIcon></DropdownIcon>
 			</Button>
-		</div>
+			<Dropdown top="3rem" left="3.2rem" expanded={isFilterExpanded}>
+				{#each ['all', 'programming', 'designing', 'AI'] as choice (choice)}
+					<li>
+						<Button
+							width="12rem"
+							justifyContent="flex-start"
+							active={choice == filterState}
+							onclick={() => handleFilterClick(choice)}
+							dropdown
+							ghost
+						>
+							{choice}
+						</Button>
+					</li>
+				{/each}
+			</Dropdown>
+		{:else}
+			<Button primary active={filterState == 'all'} onclick={() => handleFilterClick('all')}
+				>all</Button
+			>
+			<Button
+				primary
+				active={filterState == 'programming'}
+				onclick={() => handleFilterClick('programming')}>programming</Button
+			>
+			<Button
+				primary
+				active={filterState == 'designing'}
+				onclick={() => handleFilterClick('designing')}>designing</Button
+			>
+			<Button primary active={filterState == 'ai'} onclick={() => handleFilterClick('ai')}
+				>AI</Button
+			>
+		{/if}
 	</div>
-</div>
+	<div class="sub-filters">
+		<Button ghost padding="0" onclick={() => (subFilter = subFilter === 'grid' ? 'list' : 'grid')}>
+			{#if subFilter === 'grid'}
+				<List></List>
+			{:else}
+				<Grid></Grid>
+			{/if}
+		</Button>
+	</div>
+</SubDashboard>
+
 <div class="works-wrapper">
 	{#if isLoading}
 		<p>Loading...</p>
@@ -170,64 +165,17 @@
 		}
 	}
 
-	div.project-wrapper {
-		position: sticky;
-		padding-top: 3rem;
-		top: 3rem;
-		z-index: 1;
-		backdrop-filter: blur(5px);
-		-webkit-backdrop-filter: blur(5px);
-		border-bottom: 1px solid var(--light-theme-color-1);
-		box-shadow: 4px 4px 8px 1px rgba(0, 0, 0, 0.1);
-		border-bottom-left-radius: 2rem;
-		border-bottom-right-radius: 2rem;
-		padding-inline: 1.5rem;
+	div.main-filters {
+		display: inherit;
+		align-items: center;
+		gap: 0.5rem;
+		position: relative;
 
-		@media (max-width: 768px) {
-			border-bottom-left-radius: 1rem;
-			border-bottom-right-radius: 1rem;
-			padding-top: 1.8rem;
-			padding-inline: 1rem;
-		}
-
-		h2 {
-			font-family: 'RobotoCondensed', Arial, Helvetica, sans-serif;
-			font-size: 1.8rem;
-			letter-spacing: -0.09rem;
+		h4 {
+			font-size: 1rem;
 			color: var(--dark-theme-color-5);
-			border-bottom: 1px solid var(--light-theme-color-2);
-			padding-bottom: 1rem;
-			padding-inline: 1rem;
-
-			@media (max-width: 576px) {
-				padding-inline: 0.5rem;
-			}
-		}
-
-		div.filter-wrapper {
-			padding-block: 1rem;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			padding-inline: 2rem;
-
-			@media (max-width: 576px) {
-				padding-inline: 0.5rem;
-			}
-
-			div.main-filters {
-				display: inherit;
-				align-items: center;
-				gap: 0.5rem;
-				position: relative;
-
-				h4 {
-					font-size: 1rem;
-					color: var(--dark-theme-color-5);
-					font-weight: 600;
-					letter-spacing: -0.06rem;
-				}
-			}
+			font-weight: 600;
+			letter-spacing: -0.06rem;
 		}
 	}
 

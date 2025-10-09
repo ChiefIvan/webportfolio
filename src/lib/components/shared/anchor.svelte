@@ -35,6 +35,7 @@
 		display: block;
 		text-decoration: none;
 		border-bottom: none;
+		font-weight: normal;
 	}
 
 	a.nav:hover {

@@ -24,6 +24,23 @@
 		}
 	};
 
+	const handleclick = () => {
+		isOpen = !isOpen;
+
+		if (isOpen) {
+			tick().then(() => {
+				if (textareaRef) {
+					textareaRef.focus();
+				}
+			});
+		} else {
+			document.getElementById('assistant-overlay').classList.add('reduce-index');
+			setTimeout(() => {
+				document.getElementById('assistant-overlay').classList.remove('reduce-index');
+			}, 300);
+		}
+	};
+
 	const scrollToBottom = async () => {
 		if (ulRef) {
 			await tick();
@@ -150,15 +167,7 @@
 		{/if}
 
 		<div class="button">
-			<Button
-				onclick={() => {
-					isOpen = !isOpen;
-					document.getElementById('assistant-overlay').classList.remove('reduce-index');
-				}}
-				custom
-				radius="5rem"
-				gap="0.5rem"
-			>
+			<Button onclick={handleclick} custom radius="5rem" gap="0.5rem">
 				<Message></Message>
 				<span>Chat with Assistant</span>
 			</Button>

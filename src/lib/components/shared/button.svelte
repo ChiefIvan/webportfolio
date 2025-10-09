@@ -19,7 +19,7 @@
 	class:disabled={props.disabled}
 	class:active={props.active}
 	disabled={props.disabled}
-	style={`border-radius: ${props.radius}; gap: ${props.gap}; padding: ${props.padding}; width: ${props.width}; align-items: ${props.alignItems}; justify-content: ${props.justifyContent};`}
+	style={`border-color: ${props.borderColor}; border-radius: ${props.radius}; gap: ${props.gap}; padding: ${props.padding}; width: ${props.width}; align-items: ${props.alignItems}; justify-content: ${props.justifyContent};`}
 >
 	{@render props.children()}
 </button>
@@ -53,6 +53,7 @@
 		border: 2px solid transparent;
 		font-weight: 900;
 		color: var(--dark-theme-color-5);
+		border: 1px solid transparent;
 	}
 
 	button.ghost:hover {
