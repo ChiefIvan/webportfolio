@@ -182,5 +182,9 @@
 	div.works-wrapper {
 		padding-inline: 1rem;
 		margin-top: 1rem;
+
+		@media (max-width: 576px) {
+			padding-inline: 0;
+		}
 	}
 </style>

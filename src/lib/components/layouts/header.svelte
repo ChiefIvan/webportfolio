@@ -11,6 +11,8 @@
 	import Projects from '../icons/projects.svelte';
 	import Blogs from '../icons/blogs.svelte';
 
+	const props = $props();
+
 	let size = $state();
 	let isScreenSmall = $state(false);
 	let isNavOpen = $state(false);
@@ -46,7 +48,7 @@
 {/if}
 
 <header class:is-open={isNavOpen}>
-	{#if isScreenSmall}
+	{#if !props.admin && isScreenSmall}
 		<div class="nav-content-wrapper-mobile">
 			<Button ghost onclick={handleNavOpen} aria-label="Toggle navigation">
 				<svg
@@ -69,35 +71,29 @@
 		</div>
 	{/if}
 
-	<div class="nav-content-wrapper" class:open={isNavOpen}>
+	<div class="nav-content-wrapper" class:not-admin={!props.admin} class:open={isNavOpen}>
 		<div class="nav">
 			<div class="logo-wrapper">
 				<span> ban.dev </span>
 			</div>
 			<nav>
 				<ul>
-					<NavItem>
-						<Anchor nav {isScreenSmall} icon={Home} onclick={handleNavClose} link="/">Home</Anchor>
-					</NavItem>
-					<NavItem>
-						<Anchor
-							nav
-							{isScreenSmall}
-							icon={Background}
-							onclick={handleNavClose}
-							link="/background">Background</Anchor
-						>
-					</NavItem>
-					<NavItem>
-						<Anchor nav {isScreenSmall} icon={Projects} onclick={handleNavClose} link="/projects"
-							>Projects</Anchor
-						>
-					</NavItem>
-					<NavItem>
-						<Anchor nav {isScreenSmall} icon={Blogs} onclick={handleNavClose} link="/blogs"
-							>Blogs</Anchor
-						>
-					</NavItem>
+					{#if props.navContents}
+						{#each props.navContents as navContent}
+							<NavItem>
+								{@const Component = navContent.component}
+								<Component
+									nav
+									{isScreenSmall}
+									onclick={handleNavClose}
+									link={navContent.href}
+									icon={navContent.icon}
+								>
+									{navContent.text}
+								</Component>
+							</NavItem>
+						{/each}
+					{/if}
 				</ul>
 			</nav>
 		</div>
@@ -122,7 +118,7 @@
 			border-bottom: none;
 		}
 
-		div.nav-content-wrapper {
+		div.nav-content-wrapper.not-admin {
 			background-color: var(--light-theme-color-1);
 			padding-inline: 0 !important;
 			position: fixed;
@@ -136,7 +132,7 @@
 			border-top-right-radius: 1rem;
 		}
 
-		div.open {
+		div.open.not-admin {
 			width: 70%;
 		}
 
