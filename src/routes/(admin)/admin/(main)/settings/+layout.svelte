@@ -22,6 +22,9 @@
 			<NavItem>
 				<Anchor nav link={`${settingsPathname}/manage-profile`}>Manage Profile</Anchor>
 			</NavItem>
+			<NavItem>
+				<Anchor nav link={`${settingsPathname}/site-settings`}>Site Settings</Anchor>
+			</NavItem>
 		</ul>
 	</nav>
 </div>

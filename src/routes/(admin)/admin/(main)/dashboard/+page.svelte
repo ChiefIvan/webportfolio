@@ -1,7 +1,8 @@
 <script>
 	import { onMount } from 'svelte';
-
 	import { page } from '$app/stores';
+
+	import PageTitle from '$lib/components/shared/pageTitle.svelte';
 
 	let session = null;
 
@@ -19,6 +20,7 @@
 </svelte:head>
 
 <div class="content-wrapper">
+	<PageTitle text="Dashboard" borderColor="var(--dark-theme-color-6)"></PageTitle>
 	<h1>Admin Dashboard</h1>
 	{#if session}
 		<p>Welcome, {session.user.name}!</p>

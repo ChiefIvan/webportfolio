@@ -4,6 +4,8 @@
 	import Button from '$lib/components/shared/button.svelte';
 	import NavItem from '../shared/navItem.svelte';
 	import Anchor from '../shared/anchor.svelte';
+	import DashboardIcon from '$lib/components/icons/dashboard.svelte';
+	import SettingsIcon from '$lib/components/icons/settings.svelte';
 	import Favicon from '$lib/assets/img/favicon.png';
 
 	let isExpanded = true;
@@ -19,11 +21,19 @@
 		</div>
 		<nav>
 			<ul>
-				<NavItem>
-					<Anchor nav link="/admin/dashboard">Dashboard</Anchor>
+				<NavItem padding="0" width="100%">
+					<Anchor nav admin={true} icon={DashboardIcon} link="/admin/dashboard">
+						{#if isExpanded}
+							<span transition:fade={{ duration: 300 }}> Dashboard </span>
+						{/if}
+					</Anchor>
 				</NavItem>
-				<NavItem>
-					<Anchor nav link="/admin/settings">Settings</Anchor>
+				<NavItem padding="0" width="100%">
+					<Anchor nav admin={true} icon={SettingsIcon} link="/admin/settings">
+						{#if isExpanded}
+							<span transition:fade={{ duration: 300 }}> Settings </span>
+						{/if}
+					</Anchor>
 				</NavItem>
 			</ul>
 		</nav>
@@ -85,9 +95,12 @@
 		}
 
 		nav {
+			margin-top: 1.5rem;
+
 			ul {
-				display: flex;
-				flex-direction: column;
+				span {
+					font-size: 1rem;
+				}
 			}
 		}
 	}

@@ -73,7 +73,12 @@
 		{/if}
 	{/if}
 
-	<div class="nav-content-wrapper" class:admin={props.admin} class:open={isNavOpen}>
+	<div
+		class="nav-content-wrapper"
+		class:isScreenSmall
+		class:admin={props.admin}
+		class:open={isNavOpen}
+	>
 		<div class="nav-content" class:admin={props.admin}>
 			{#if !props.admin}
 				<div class="logo-wrapper">
@@ -199,6 +204,21 @@
 			div.nav-content.admin {
 				justify-content: flex-end;
 			}
+		}
+
+		div.nav-content-wrapper.isScreenSmall {
+			position: fixed;
+			top: 0;
+			height: 100dvh;
+			width: 0;
+			background-color: var(--light-theme-color-1);
+			padding-inline: 0 !important;
+			overflow: hidden;
+		}
+
+		div.nav-content-wrapper.isScreenSmall.open {
+			width: 70%;
+			box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
 		}
 
 		div.nav-content-wrapper.admin {
