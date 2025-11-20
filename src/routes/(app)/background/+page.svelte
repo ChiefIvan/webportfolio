@@ -2,7 +2,6 @@
 	import { tooltip } from '$lib/tooltip';
 
 	import Icon from '@iconify/svelte';
-	import Aside from '$lib/components/shared/aside.svelte';
 	import Accodion from '$lib/components/shared/accodion.svelte';
 	import Table from '$lib/components/shared/table.svelte';
 	import TableHead from '$lib/components/shared/tableHead.svelte';
@@ -145,7 +144,6 @@
 		</div>
 	</section>
 </div>
-<Aside></Aside>
 
 <style>
 	@media (max-width: 768px) {

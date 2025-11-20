@@ -3,7 +3,7 @@
 	import { fly } from 'svelte/transition';
 	import { beforeNavigate, afterNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { domSize } from '$lib/domSizeStore.js';
+	import { domSize } from '$lib/domSize.js';
 
 	import Button from '$lib/components/shared/button.svelte';
 	import Card from '$lib/components/shared/card.svelte';

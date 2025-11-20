@@ -67,7 +67,7 @@
 		div.card-wrapper {
 			transition: all ease-in-out 300ms;
 			border-radius: 6px;
-			padding: 0.4rem;
+			padding: 0.3rem;
 			margin-bottom: 0.5rem;
 		}
 

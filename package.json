@@ -21,6 +21,8 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
+		"@auth/core": "^0.41.1",
+		"@auth/sveltekit": "^1.11.1",
 		"@iconify-json/logos": "^1.2.9",
 		"@iconify-json/simple-icons": "^1.2.49",
 		"@iconify/svelte": "^5.0.1",

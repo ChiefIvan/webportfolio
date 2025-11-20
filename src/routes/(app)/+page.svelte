@@ -1,13 +1,13 @@
 <script>
-	import { domSize } from '$lib/domSizeStore';
+	import { domSize } from '$lib/domSize';
 	import { onDestroy } from 'svelte';
 
-	import Author from '$lib/assets/author.jpg';
+	import Author from '$lib/assets/img/author.jpg';
 	import Card from '$lib/components/shared/card.svelte';
 	import Button from '$lib/components/shared/button.svelte';
-	import MobileDev from '$lib/assets/mobile_development.jpg';
-	import WebDev from '$lib/assets/web_development.jpg';
-	import More from '$lib/assets/more.jpg';
+	import MobileDev from '$lib/assets/img/mobile_development.jpg';
+	import WebDev from '$lib/assets/img/web_development.jpg';
+	import More from '$lib/assets/img/more.jpg';
 	import CardWrapper from '$lib/components/layouts/cardWrapper.svelte';
 	import Dropdown from '$lib/components/icons/dropdown.svelte';
 

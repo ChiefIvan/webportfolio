@@ -7,7 +7,7 @@
 	import Message from '$lib/components/icons/sparkle.svelte';
 	import Send from '$lib/components/icons/send.svelte';
 	import Spinner from '$lib/components/icons/spinner.svelte';
-	import favicon from '$lib/assets/favicon.png';
+	import favicon from '$lib/assets/img/favicon.png';
 
 	let textareaRef = $state();
 	let ulRef = $state();

@@ -57,7 +57,7 @@
 	}
 
 	button.ghost:hover {
-		background-color: var(--light-theme-color-1);
+		background-color: transparent;
 		border-color: transparent;
 	}
 

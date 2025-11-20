@@ -6,8 +6,8 @@
 	import Calendar from '$lib/components/icons/calendar.svelte';
 	import Dropdown from '$lib/components/icons/dropdown.svelte';
 	import DropdownIcon from '$lib/components/icons/dropdown.svelte';
-	import MobileDev from '$lib/assets/mobile_development.jpg';
-	import More from '$lib/assets/more.jpg';
+	import MobileDev from '$lib/assets/img/mobile_development.jpg';
+	import More from '$lib/assets/img/more.jpg';
 	import SubDashboard from '$lib/components/shared/subDashboard.svelte';
 
 	const { data, children } = $props();
@@ -66,7 +66,6 @@
 		align-items: center;
 		justify-content: flex-end;
 		column-gap: 0.5rem;
-		margin-bottom: 1rem;
 
 		@media (max-width: 576px) {
 			justify-content: center;

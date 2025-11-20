@@ -1,7 +1,7 @@
 <script>
 	import { onDestroy } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { domSize } from '$lib/domSizeStore';
+	import { domSize } from '$lib/domSize';
 
 	import NavItem from '$lib/components/shared/navItem.svelte';
 	import Anchor from '$lib/components/shared/anchor.svelte';
@@ -36,7 +36,7 @@
 	};
 </script>
 
-{#if isNavOpen}
+{#if !props.admin && isNavOpen}
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
@@ -47,54 +47,62 @@
 	></div>
 {/if}
 
-<header class:is-open={isNavOpen}>
-	{#if !props.admin && isScreenSmall}
-		<div class="nav-content-wrapper-mobile">
-			<Button ghost onclick={handleNavOpen} aria-label="Toggle navigation">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="24"
-					height="24"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					class="burger-icon"
-				>
-					<line x1="3" y1="12" x2="21" y2="12"></line>
-					<line x1="3" y1="6" x2="21" y2="6"></line>
-					<line x1="3" y1="18" x2="21" y2="18"></line>
-				</svg>
-			</Button>
-		</div>
+<header class:is-open={isNavOpen} class:admin={props.admin}>
+	{#if !props.admin}
+		{#if isScreenSmall}
+			<div class="nav-content-wrapper-mobile">
+				<Button ghost onclick={handleNavOpen} aria-label="Toggle navigation">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="burger-icon"
+					>
+						<line x1="3" y1="12" x2="21" y2="12"></line>
+						<line x1="3" y1="6" x2="21" y2="6"></line>
+						<line x1="3" y1="18" x2="21" y2="18"></line>
+					</svg>
+				</Button>
+			</div>
+		{/if}
 	{/if}
 
-	<div class="nav-content-wrapper" class:not-admin={!props.admin} class:open={isNavOpen}>
-		<div class="nav">
-			<div class="logo-wrapper">
-				<span> ban.dev </span>
-			</div>
+	<div class="nav-content-wrapper" class:admin={props.admin} class:open={isNavOpen}>
+		<div class="nav-content" class:admin={props.admin}>
+			{#if !props.admin}
+				<div class="logo-wrapper">
+					<span> ban.dev </span>
+				</div>
+			{/if}
 			<nav>
-				<ul>
-					{#if props.navContents}
+				{#if props.navContents}
+					<ul class:admin={props.admin}>
 						{#each props.navContents as navContent}
 							<NavItem>
 								{@const Component = navContent.component}
-								<Component
-									nav
-									{isScreenSmall}
-									onclick={handleNavClose}
-									link={navContent.href}
-									icon={navContent.icon}
-								>
-									{navContent.text}
-								</Component>
+								{#if !props.admin}
+									<Component
+										nav
+										{isScreenSmall}
+										onclick={handleNavClose}
+										link={navContent.href}
+										icon={navContent.icon}
+									>
+										{navContent.text}
+									</Component>
+								{:else}
+									<Component></Component>
+								{/if}
 							</NavItem>
 						{/each}
-					{/if}
-				</ul>
+					</ul>
+				{/if}
 			</nav>
 		</div>
 	</div>
@@ -118,24 +126,6 @@
 			border-bottom: none;
 		}
 
-		div.nav-content-wrapper.not-admin {
-			background-color: var(--light-theme-color-1);
-			padding-inline: 0 !important;
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 0;
-			border-bottom: none;
-			height: 100dvh;
-			overflow-y: hidden;
-			border-bottom-right-radius: 1rem;
-			border-top-right-radius: 1rem;
-		}
-
-		div.open.not-admin {
-			width: 70%;
-		}
-
 		div.nav-content-wrapper-mobile {
 			padding: 0.5rem;
 		}
@@ -145,7 +135,6 @@
 		position: sticky;
 		z-index: 3;
 		top: 0;
-		border-bottom: 1px solid var(--light-theme-color-1);
 		backdrop-filter: blur(5px);
 		-webkit-backdrop-filter: blur(5px);
 		transition: border-bottom 300ms;
@@ -156,7 +145,7 @@
 		}
 
 		div.nav-content-wrapper {
-			div.nav {
+			div.nav-content {
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
@@ -199,8 +188,30 @@
 							height: auto;
 						}
 					}
+
+					ul.admin {
+						height: auto;
+						margin-block: 0.2rem;
+					}
 				}
 			}
+
+			div.nav-content.admin {
+				justify-content: flex-end;
+			}
 		}
+
+		div.nav-content-wrapper.admin {
+			max-width: none !important;
+			margin: 0 !important;
+		}
+	}
+
+	header.admin {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		background-color: rgba(255, 255, 255, 0.1);
+		height: 48.5px;
 	}
 </style>
