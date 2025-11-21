@@ -198,11 +198,8 @@
 
 			div.academic-info-wrapper {
 				h3 {
-					font-size: 1rem;
 					flex: 0.3;
-				}
-
-				h3 {
+					font-size: 1rem;
 					font-style: italic;
 					font-weight: 600;
 					letter-spacing: -0.06rem;

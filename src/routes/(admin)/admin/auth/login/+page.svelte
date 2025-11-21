@@ -1,5 +1,4 @@
 <script>
-	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { signIn, signOut } from '@auth/sveltekit/client';
@@ -9,13 +8,7 @@
 
 	let session = null;
 
-	onMount(() => {
-		session = $page.data.session;
-
-		if (session) {
-			goto('/admin/dashboard');
-		}
-	});
+	$: callbackUrl = $page.url.searchParams.get('callbackUrl') ?? '/admin/dashboard';
 </script>
 
 <svelte:head>
@@ -26,7 +19,12 @@
 	<div class="login">
 		{#if !session}
 			<h2>Admin Login</h2>
-			<Button primary gap="0.5rem" padding="0.2rem 2rem" onclick={() => signIn('github')}>
+			<Button
+				primary
+				gap="0.5rem"
+				padding="0.2rem 2rem"
+				onclick={() => signIn('github', { callbackUrl })}
+			>
 				<Github></Github>
 				Login to Github
 			</Button>

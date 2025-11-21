@@ -32,6 +32,7 @@
 		height: inherit;
 		border-bottom: 2px solid transparent;
 		transition: border-color 300ms;
+		padding-bottom: 0.2rem;
 
 		div.icon-wrapper {
 			display: flex;
@@ -74,7 +75,7 @@
 	a.nav.admin {
 		border-bottom: none;
 		color: var(--light-theme-color-6);
-		padding: 0.5rem 0.2rem;
+		padding: 0.6rem 0.4rem;
 		width: 100%;
 		border-radius: 0.5rem;
 	}

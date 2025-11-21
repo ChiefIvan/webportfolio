@@ -6,9 +6,18 @@
 	import Anchor from '../shared/anchor.svelte';
 	import DashboardIcon from '$lib/components/icons/dashboard.svelte';
 	import SettingsIcon from '$lib/components/icons/settings.svelte';
+	import ManageBlogsIcon from '$lib/components/icons/manageBlogs.svelte';
+	import ManageProjectsIcon from '$lib/components/icons/manageProjects.svelte';
 	import Favicon from '$lib/assets/img/favicon.png';
 
 	let isExpanded = true;
+
+	const navContents = [
+		{ text: 'Dashboard', link: '/admin/dashboard', icon: DashboardIcon },
+		{ text: 'Manage Blogs', link: '/admin/manage-blogs', icon: ManageBlogsIcon },
+		{ text: 'Manage Projects', link: '/admin/manage-projects', icon: ManageProjectsIcon },
+		{ text: 'Settings', link: '/admin/settings', icon: SettingsIcon }
+	];
 </script>
 
 <div class="sidebar-wrapper" class:expanded={isExpanded}>
@@ -21,20 +30,15 @@
 		</div>
 		<nav>
 			<ul>
-				<NavItem padding="0" width="100%">
-					<Anchor nav admin={true} icon={DashboardIcon} link="/admin/dashboard">
-						{#if isExpanded}
-							<span transition:fade={{ duration: 300 }}> Dashboard </span>
-						{/if}
-					</Anchor>
-				</NavItem>
-				<NavItem padding="0" width="100%">
-					<Anchor nav admin={true} icon={SettingsIcon} link="/admin/settings">
-						{#if isExpanded}
-							<span transition:fade={{ duration: 300 }}> Settings </span>
-						{/if}
-					</Anchor>
-				</NavItem>
+				{#each navContents as nav}
+					<NavItem padding="0" width="100%">
+						<Anchor nav admin={true} icon={nav.icon} link={nav.link}>
+							{#if isExpanded}
+								<span transition:fade={{ duration: 300 }}> {nav.text} </span>
+							{/if}
+						</Anchor>
+					</NavItem>
+				{/each}
 			</ul>
 		</nav>
 	</aside>
@@ -99,7 +103,9 @@
 
 			ul {
 				span {
-					font-size: 1rem;
+					/* font-size: 1rem; */
+					font-weight: 700;
+					text-wrap: nowrap;
 				}
 			}
 		}

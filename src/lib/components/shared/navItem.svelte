@@ -12,7 +12,6 @@
 		align-content: center;
 		border-radius: 1px;
 		height: 100%;
-		/* width: 100%; */
 
 		@media (max-width: 576px) {
 			margin-block: 0.2rem;
