@@ -16,7 +16,7 @@
 </script>
 
 <svelte:head>
-	<title>Ban | Admin - Dashboard</title>
+	<title>Dashboard - Admin</title>
 </svelte:head>
 
 <div class="content-wrapper">

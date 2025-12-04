@@ -1,5 +1,4 @@
 <script>
-	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 
@@ -10,10 +9,6 @@
 	const props = $props();
 
 	const settingsPathname = '/admin/settings';
-
-	onMount(() => {
-		goto(`${settingsPathname}/manage-profile`);
-	});
 </script>
 
 <div class="settings-wrapper">
@@ -26,6 +21,9 @@
 				</NavItem>
 				<NavItem>
 					<Anchor nav link={`${settingsPathname}/site-settings`}>Site Settings</Anchor>
+				</NavItem>
+				<NavItem>
+					<Anchor nav link={`${settingsPathname}/notifications`}>Notifications</Anchor>
 				</NavItem>
 			</ul>
 		</nav>

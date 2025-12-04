@@ -73,7 +73,7 @@
 
 *::selection {
 	color: var(--light-theme-color-1);
-	background-color: var(--light-theme-color-6);
+	background-color: orangered;
 }
 
 img {

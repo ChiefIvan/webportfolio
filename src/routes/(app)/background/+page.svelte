@@ -1,5 +1,5 @@
 <script>
-	import { tooltip } from '$lib/tooltip';
+	import { tooltip } from '$lib/actions/tooltip';
 
 	import Icon from '@iconify/svelte';
 	import Accodion from '$lib/components/shared/accodion.svelte';

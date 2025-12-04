@@ -104,7 +104,7 @@
 			ul {
 				span {
 					/* font-size: 1rem; */
-					font-weight: 700;
+					font-weight: 600;
 					text-wrap: nowrap;
 				}
 			}

@@ -1,69 +1,78 @@
-<!-- <script>
+<script>
 	import { createEventDispatcher } from 'svelte';
 
 	import Button from './button.svelte';
 	import Sign from './sign.svelte';
-	import Delete from '$components/icons/delete.svelte';
+	import Delete from '$lib/components/icons/delete.svelte';
+	import { text } from '@sveltejs/kit';
 
 	const dispatch = createEventDispatcher();
 
 	const props = $props();
-
-	export let inputType;
-	export let inputName;
-	export let inputValue = '';
-	export let tooltipContent = '';
-	export let markingSign = '!';
-	export let fontWeight = 'normal';
-	export let required = true;
-	export let disabled = false;
-	export let danger = false;
-	export let password = false;
-	export let search = false;
 </script>
 
 <div class="input-wrapper">
-	<div class="input">
-		<input
-			placeholder=""
-			{required}
-			id={inputName}
-			name={inputName}
-			type={inputType}
-			class:danger
-			class:password
-			oninput={props.oninput}
-			value={inputValue}
-			style={`font-weight: ${fontWeight}`}
-			{disabled}
-		/>
-		<label class="placeholder" for={inputName}>{inputName}</label>
+	<div class="input" class:textarea={props.textarea}>
+		{#if !props.textarea}
+			<input
+				placeholder=""
+				required={props.required}
+				id={props.inputName}
+				name={props.inputName}
+				type={props.inputType}
+				class:danger={props.danger}
+				class:disabled={props.disabled}
+				class:password={props.password}
+				oninput={props.oninput}
+				value={props.inputValue}
+				style={`font-weight: ${props.fontWeight}`}
+				disabled={props.disabled}
+				autocomplete="off"
+			/>
+		{:else}
+			<textarea
+				placeholder=""
+				required={props.required}
+				id={props.inputName}
+				name={props.inputName}
+				class:disabled={props.disabled}
+				oninput={props.oninput}
+				value={props.inputValue}
+				style={`font-weight: ${props.fontWeight}`}
+				disabled={props.disabled}
+			></textarea>
+		{/if}
+		<label
+			class="placeholder"
+			class:textarea={props.textarea}
+			class:disabled={props.disabled}
+			for={props.inputName}>{props.inputName}</label
+		>
 	</div>
 	<div class="floaters">
-		{#if danger}
-			<Sign {markingSign} {tooltipContent}></Sign>
+		{#if props.danger}
+			<Sign markingSign={props.markingSign} tooltipContent={props.tooltipContent}></Sign>
 		{/if}
-		{#if search && inputValue.length}
+		{#if props.search && props.inputValue.length}
 			<div class="button-wrapper">
 				<Button
-					buttonLabel="Delete button"
-					on:click={() => {
+					ghost
+					onclick={() => {
 						dispatch('clear');
 					}}
-					clear
 				>
 					<Delete></Delete>
 				</Button>
 			</div>
 		{/if}
-		{#if password}
+		{#if props.password}
 			<div class="button-wrapper">
 				<Button
 					buttonLabel="Password button"
-					on:click={() => (inputType = inputType == 'password' ? 'text' : 'password')}
-					clear
+					onclick={() => (props.inputType = props.inputType == 'password' ? 'text' : 'password')}
+					ghost
 				>
-					{#if inputType == 'password'}
+					{#if props.inputType == 'password'}
 						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 16 16"
 							><path
 								fill="var(--light-theme-color-5)"
@@ -101,38 +110,83 @@
 			display: flex;
 			align-items: center;
 
-			& label.placeholder {
-				position: absolute;
-				padding-left: 0.5rem;
-				transition: all ease-in-out 200ms;
-				z-index: -1;
-				font-size: 1.1rem;
-				font-weight: 600;
+			input,
+			textarea,
+			label.placeholder {
 				color: var(--light-theme-color-6);
-				user-select: none;
-				-webkit-user-select: none;
 			}
 
-			& input {
+			input {
+				border: 2px solid transparent;
+				border-bottom: 2px solid var(--light-theme-color-2);
+
+				&:focus {
+					border-bottom-color: var(--dark-theme-color-6);
+				}
+
+				&:focus + .placeholder,
+				&:not(:placeholder-shown) + .placeholder {
+					transform: translateY(-1.3rem);
+				}
+			}
+
+			textarea {
+				min-height: 15rem;
+				resize: vertical;
+				border: 2px solid var(--light-theme-color-2);
+
+				&:focus {
+					border-color: var(--dark-theme-color-6);
+				}
+
+				&:focus + .placeholder,
+				&:not(:placeholder-shown) + .placeholder {
+					transform: translateY(-1.6rem);
+				}
+			}
+
+			input,
+			textarea {
 				width: 100%;
 				padding: 0.5rem;
 				transition: all ease-in-out 200ms;
 				background-color: transparent;
-				border: 2px solid transparent;
-				border-bottom: 2px solid var(--light-theme-color-2);
 				outline: none;
+				font-family: 'Inter', Arial, Helvetica, sans-serif;
+
+				&:focus + .placeholder,
+				&:not(:placeholder-shown) + .placeholder {
+					font-size: 0.6rem !important;
+					padding-left: 0.3rem;
+				}
 			}
 
-			& input.password {
-				padding-right: 2.5rem;
+			input:focus,
+			textarea:focus {
+				& + label.placeholder {
+					color: var(--dark-theme-color-6);
+				}
 			}
 
-			& input:focus {
-				border-bottom-color: var(--dark-theme-color-6);
+			label.placeholder {
+				position: absolute;
+				padding-left: 0.5rem;
+				transition: all ease-in-out 200ms;
+				z-index: -1;
+				font-weight: 600;
+				user-select: none;
+				-webkit-user-select: none;
 			}
 
-			& input:focus + label.placeholder {
-				color: var(--dark-theme-color-6);
+			label.placeholder.textarea {
+				top: 0rem;
+				margin-top: 0.5rem;
+			}
+
+			input.disabled,
+			textarea.disabled,
+			label.placeholder.disabled {
+				color: var(--light-theme-color-3);
 			}
 
 			& input.danger {
@@ -156,6 +210,10 @@
 			}
 		}
 
+		div.textarea {
+			align-items: flex-start;
+		}
+
 		& div.floaters {
 			position: absolute;
 			top: 0;
@@ -168,13 +226,6 @@
 			z-index: 1;
 		}
 
-		& div.input:focus-within label.placeholder,
-		input:not(:placeholder-shown) + label.placeholder {
-			transform: translatey(-1.3rem);
-			font-size: 0.6rem !important;
-			padding-left: 0.3rem;
-		}
-
 		/* & div.input:focus-within label.placeholder,
     input[type="search"]:not(:placeholder-shown) + label.placeholder {
       transform: translatey(-1.1rem) !important;
@@ -182,4 +233,4 @@
       padding-left: 0.3rem;
     } */
 	}
-</style> -->
+</style>

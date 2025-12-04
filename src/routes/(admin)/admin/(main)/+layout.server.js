@@ -4,15 +4,11 @@ import { redirect } from '@sveltejs/kit';
 export const load = async ({ locals, url }) => {
 	const session = await locals.auth();
 
-	// Allow access to the login page itself
-	if (url.pathname.startsWith('/admin/auth/login')) {
-		return { session };
-	}
+	if (!session?.user?.isAdmin) {
+		const redirectTo = url.pathname.startsWith('/admin/auth/login')
+			? '/admin/dashboard'
+			: encodeURIComponent(url.pathname + url.search);
 
-	// Everything else in /admin requires login
-	if (!session?.user) {
-		// Save where they were trying to go
-		const redirectTo = encodeURIComponent(url.pathname + url.search);
 		throw redirect(307, `/admin/auth/login?callbackUrl=${redirectTo}`);
 	}
 

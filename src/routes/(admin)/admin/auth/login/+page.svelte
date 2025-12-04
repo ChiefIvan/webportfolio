@@ -23,11 +23,18 @@
 				primary
 				gap="0.5rem"
 				padding="0.2rem 2rem"
-				onclick={() => signIn('github', { callbackUrl })}
+				onclick={() =>
+					signIn('github', {
+						redirectTo: callbackUrl,
+						authorizationParams: { prompt: 'login' }
+					})}
 			>
 				<Github></Github>
 				Login to Github
 			</Button>
+		{/if}
+		{#if $page.url.searchParams.get('error') === 'access_denied' || $page.error}
+			<p>Access denied — your GitHub account is not on the admin allow-list.</p>
 		{/if}
 	</div>
 </div>

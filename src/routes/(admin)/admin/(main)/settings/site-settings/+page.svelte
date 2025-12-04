@@ -1,3 +1,3 @@
 <svelte:head>
-	<title>Manage Profile - Admin Settings</title>
+	<title>Site Settings - Admin/Settings</title>
 </svelte:head>

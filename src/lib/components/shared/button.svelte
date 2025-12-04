@@ -16,10 +16,11 @@
 	class:dropdown={props.dropdown}
 	class:custom={props.custom}
 	class:primary={props.primary}
+	class:danger={props.danger}
 	class:disabled={props.disabled}
 	class:active={props.active}
 	disabled={props.disabled}
-	style={`border-color: ${props.borderColor}; border-radius: ${props.radius}; gap: ${props.gap}; padding: ${props.padding}; width: ${props.width}; align-items: ${props.alignItems}; justify-content: ${props.justifyContent};`}
+	style={`border-color: ${props.borderColor}; border-radius: ${props.radius}; gap: ${props.gap}; padding: ${props.padding}; width: ${props.width}; align-items: ${props.alignItems}; justify-content: ${props.justifyContent}; background-color: ${props.backgroundColor}; color: ${props.color};`}
 >
 	{@render props.children()}
 </button>
@@ -76,6 +77,13 @@
 		color: var(--light-theme-color-1);
 		border-color: transparent;
 		border-radius: 0.5rem;
+	}
+
+	button.danger {
+		background-color: #ff0000;
+		color: var(--light-theme-color-1);
+		border-radius: 0.5rem;
+		border-color: transparent;
 	}
 
 	button.custom {

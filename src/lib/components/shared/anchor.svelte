@@ -32,7 +32,6 @@
 		height: inherit;
 		border-bottom: 2px solid transparent;
 		transition: border-color 300ms;
-		padding-bottom: 0.2rem;
 
 		div.icon-wrapper {
 			display: flex;
@@ -73,6 +72,7 @@
 	}
 
 	a.nav.admin {
+		transition: all ease-in-out 150ms;
 		border-bottom: none;
 		color: var(--light-theme-color-6);
 		padding: 0.6rem 0.4rem;
@@ -100,7 +100,7 @@
 		background-color: var(--light-theme-color-2);
 	}
 
-	a.isScreenSmall:hover {
-		background-color: var(--light-theme-color-2);
+	a.nav.admin:hover {
+		background-color: #eaeaea;
 	}
 </style>

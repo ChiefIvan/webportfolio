@@ -1,0 +1,1 @@
+ALTER TABLE `users_table` MODIFY COLUMN `bio` varchar(2048);
