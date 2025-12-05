@@ -1,8 +1,9 @@
 <script>
+	import { page } from '$app/stores';
 	import { domSize } from '$lib/domSize';
 	import { onDestroy } from 'svelte';
 
-	import Author from '$lib/assets/img/author.jpg';
+	import UserIcon from '$lib/assets/img/user-icon.webp';
 	import Card from '$lib/components/shared/card.svelte';
 	import Button from '$lib/components/shared/button.svelte';
 	import MobileDev from '$lib/assets/img/mobile_development.jpg';
@@ -14,8 +15,9 @@
 	let size = $state();
 	let isOffersExpanded = $state(false);
 
-	// const props = $props();
-	const { log, error } = console;
+	const props = $props();
+	const user = props.data.user;
+	const session = $page.data.session;
 	const cardItems = [
 		{
 			src: MobileDev,
@@ -57,11 +59,11 @@
 <section class="section-1">
 	<div class="hero-wrapper">
 		<div class="circle">
-			<img src={Author} alt="" />
+			<img src={user.img ?? UserIcon} alt="" />
 		</div>
 		<div class="info-wrapper iw1">
-			<h1>Ivan P. Dawang</h1>
-			<p>(Cheif.Ivan)</p>
+			<h1>{user.name}</h1>
+			<p>({user.alias})</p>
 		</div>
 		<div class="info-wrapper iw2">
 			<p>I'm a Software Developer and Designer specializing User Experience and Performance</p>

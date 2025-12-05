@@ -45,7 +45,7 @@
 			top: 4.5rem;
 			height: 80dvh;
 			flex: 0 0 200px;
-			border-right: 1px solid var(--light-theme-color-3);
+			border-right: 1px solid var(--light-theme-color-2);
 			padding-right: 1rem;
 
 			nav {

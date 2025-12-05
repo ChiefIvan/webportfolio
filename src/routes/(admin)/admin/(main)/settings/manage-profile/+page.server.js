@@ -1,74 +1,72 @@
 import { fail, redirect } from '@sveltejs/kit';
-import { drizzle } from 'drizzle-orm/mysql2';
-import { usersTable } from '$lib/db/schema';
-import { DATABASE_URL } from '$env/static/private';
-
-// import db from '$lib/db';
+import { eq } from 'drizzle-orm';
+import { usersTable } from '$lib/server/db/schema';
+import { db } from '$lib/server/db';
 
 export const actions = {
 	default: async ({ request, locals }) => {
-		const db = drizzle(DATABASE_URL);
-
 		const session = await locals.getSession();
+		const sessionUser = session.user;
 
-		if (!session?.user?.email) {
+		if (!sessionUser) {
 			return { success: false, error: 'Not logged in' };
 		}
 
 		const data = await request.formData();
-
+		
+		const email = data.get('email')?.toString();
 		const name = data.get('Name')?.toString();
 		const alias = data.get('Alias')?.toString();
-		const email = data.get('Email')?.toString();
 		const bio = data.get('Let others know more about you...')?.toString();
 
 		try {
 			await db
-				.insert(usersTable)
-				.values({
-					email,
-					name,
-					alias,
-					bio
-				})
-				.onDuplicateKeyUpdate({
-					set: {
-						email,
-						name,
-						alias,
-						bio
-					}
-				});
+				.update(usersTable)
+				.set({ name, alias, bio })
+				.where(eq(usersTable.email, sessionUser.email));
+
+			// await db
+			// 	.insert(usersTable)
+			// 	.values({
+			// 		email,
+			// 		name,
+			// 		alias,
+			// 		bio
+			// 	})
+			// 	.onDuplicateKeyUpdate({
+			// 		set: {
+			// 			name,
+			// 			alias,
+			// 			bio
+			// 		}
+			// 	});
 
 			return { success: true };
 		} catch (error) {
 			console.error('Upsert failed:', error);
-			return fail(500, { success: false, error: 'Failed to save profile' });
+			return fail(500, { success: false, error: 'Failed to save profile!' });
 		}
 	}
 };
 
-// export const actions = {
-// 	default: async ({ request }) => {
-// 		const data = await request.formData();
-// 		const email = data.get('email')?.toString();
-// 		const password = data.get('password')?.toString();
+export const load = async ({ params, locals }) => {
+	const session = await locals.getSession();
+	const sessionUser = session.user;
 
-// 		if (!email || !password) {
-// 			return fail(400, { error: 'Email and password required' });
-// 		}
+	if (!sessionUser.email) {
+		return { success: false, error: 'Not logged in' };
+	}
 
-// 		const existing = await prisma.user.findUnique({ where: { email } });
-// 		if (existing) {
-// 			return fail(400, { error: 'User already exists' });
-// 		}
+	try {
+		const [user] = await db
+			.select()
+			.from(usersTable)
+			.where(eq(usersTable.email, sessionUser.email))
+			.limit(1);
 
-// 		const hashed = await bcrypt.hash(password, 12);
-
-// 		await prisma.user.create({
-// 			data: { email, password: hashed }
-// 		});
-
-// 		throw redirect(303, '/login?created=1');
-// 	}
-// };
+		return { user };
+	} catch (error) {
+		console.error('Fetch failed:', error);
+		return { success: false, error: 'Failed to fetch user data!' };
+	}
+};

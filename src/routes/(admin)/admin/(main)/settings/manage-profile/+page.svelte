@@ -1,25 +1,59 @@
 <script>
+	import { fade } from 'svelte/transition';
 	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
 
+	import Cropper from 'svelte-easy-crop';
 	import Button from '$lib/components/shared/button.svelte';
 	import UserIcon from '$lib/assets/img/user-icon.webp';
 	import Input from '$lib/components/shared/input.svelte';
+	import Edit from '$lib/components/icons/edit.svelte';
 
+	const props = $props();
 	const session = $page.data.session;
+	const user = props.data.user;
 
 	let isInputDisabled = $state(true);
+	let isOpenImgEdit = $state(false);
 	let submitButtonTypeState = $state('button');
+	let cropState = $state({ x: 0, y: 0 });
+	let zoomState = $state(1);
+	let fileData = $state(null);
+	let base64String = $state('');
 
-	let fullname = $state('');
-	let email = $state('');
-	let alias = $state('');
-	let bio = $state('');
+	let name = $state(user.name ?? '');
+	let email = $state(user.email ?? '');
+	let alias = $state(user.alias ?? '');
+	let bio = $state(user.bio ?? '');
 </script>
 
 <svelte:head>
 	<title>Manage Profile - Admin/Settings</title>
 </svelte:head>
+
+<!-- {#if isOpenImgEdit}
+	<div class="img-edit-modal-overlay">
+		<div class="img-edit-modal">
+			<h2>Edit Profile Image</h2>
+			<Cropper
+				image={session.user.image ? session.user.image : UserIcon}
+				aspect={1}
+				boundary={{ width: 300, height: 300 }}
+				cropShape="round"
+			></Cropper>
+			<form action="">
+				<input
+					id="image_upload"
+					name="User Image"
+					bindfiles={fileData}
+					onchange={handleImage}
+					type="file"
+					accept=".jpg"
+				/>
+			</form>
+		</div>
+	</div>
+{/if} -->
 
 <div class="manage-profile-page">
 	<form
@@ -50,10 +84,29 @@
 						alt="User Profile Icon"
 						class="profile-icon"
 					/>
+					{#if !isInputDisabled}
+						<div transition:fade={{ duration: 300 }} class="img-overlay">
+							<Button
+								onclick={() => (isOpenImgEdit = true)}
+								type="button"
+								padding="0.2rem 1rem"
+								color="var(--light-theme-color-1)"
+								ghost
+							>
+								<Edit></Edit>
+							</Button>
+						</div>
+					{/if}
 				</div>
 				<div class="basic-info">
-					<h2>{session.user.name} <span>(Github)</span></h2>
-
+					<h2>
+						{#if user.name}
+							{user.name}
+						{:else}
+							{session.user.name}
+							<span>(Github)</span>
+						{/if}
+					</h2>
 					<p>
 						{session.user.email}
 						<span>(Github)</span>
@@ -62,7 +115,19 @@
 			</div>
 			<div class="button-wrapper">
 				{#if !isInputDisabled}
-					<Button type="button" padding="0.2rem 2rem" danger>Cancel</Button>
+					<Button
+						type="button"
+						padding="0.2rem 2rem"
+						onclick={() => {
+							isInputDisabled = true;
+							// reset input values
+							name = user.name ?? '';
+							email = user.email ?? '';
+							alias = user.alias ?? '';
+							bio = user.bio ?? '';
+						}}
+						danger>Cancel</Button
+					>
 				{/if}
 				{#if isInputDisabled}
 					<Button
@@ -86,8 +151,8 @@
 					inputName="Name"
 					type="text"
 					disabled={isInputDisabled}
-					oninput={(e) => (fullname = e.target.value)}
-					inputValue={fullname}
+					oninput={(e) => (name = e.target.value)}
+					inputValue={name}
 				></Input>
 				<Input
 					required
@@ -97,26 +162,15 @@
 					oninput={(e) => (alias = e.target.value)}
 					inputValue={alias}
 				></Input>
-				<div class="email-input-wrapper">
-					<div class="email-input">
-						<Input
-							required
-							inputName="Email"
-							type="email"
-							disabled={isInputDisabled}
-							oninput={(e) => (email = e.target.value)}
-							inputValue={email}
-						></Input>
-					</div>
-					{#if !isInputDisabled}
-						<Button
-							type="button"
-							primary
-							padding="0.2rem 2rem"
-							onclick={() => (email = session.user.email)}
-							backgroundColor="var(--dark-theme-color-5)">Use Github Email</Button
-						>
-					{/if}
+				<div class="email-input">
+					<Input
+						required
+						inputName="Email"
+						type="email"
+						disabled={true}
+						oninput={(e) => (email = e.target.value)}
+						inputValue={email}
+					></Input>
 				</div>
 			</div>
 			<h3>Bio</h3>
@@ -154,6 +208,9 @@
 					width: 12rem;
 					border-radius: 50%;
 					overflow: hidden;
+					position: relative;
+					display: flex;
+					align-items: center;
 
 					img {
 						max-width: 100%;
@@ -161,6 +218,18 @@
 						aspect-ratio: 1 / 1;
 						object-fit: cover;
 						border-radius: inherit;
+					}
+
+					div.img-overlay {
+						background-color: rgba(0, 0, 0, 0.5);
+						backdrop-filter: blur(5px);
+						-webkit-backdrop-filter: blur(5px);
+						position: absolute;
+						inset: 0;
+						display: flex;
+						align-items: center;
+						column-gap: 1rem;
+						justify-content: center;
 					}
 				}
 
@@ -217,17 +286,6 @@
 				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 				gap: 1.5rem;
 				column-gap: 5rem;
-
-				div.email-input-wrapper {
-					display: flex;
-					align-items: center;
-					column-gap: 5rem;
-					grid-column: span 2;
-
-					div.email-input {
-						flex: 1;
-					}
-				}
 			}
 
 			div.textarea-wrapper {

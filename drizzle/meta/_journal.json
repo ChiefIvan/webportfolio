@@ -15,6 +15,13 @@
       "when": 1764840358440,
       "tag": "0001_fine_loners",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1764914631063,
+      "tag": "0002_superb_reavers",
+      "breakpoints": true
     }
   ]
 }

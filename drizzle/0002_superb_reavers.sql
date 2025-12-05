@@ -1,0 +1,1 @@
+ALTER TABLE `users_table` ADD `alias` varchar(255) NOT NULL;
