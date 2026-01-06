@@ -91,11 +91,6 @@
 		background-color: var(--light-theme-color-2);
 	}
 
-	a.isScreenSmall.active {
-		color: var(--dark-theme-color-6);
-		background-color: var(--light-theme-color-2);
-	}
-
 	a.isScreenSmall:hover {
 		background-color: var(--light-theme-color-2);
 	}

@@ -8,7 +8,8 @@
 
 	let session = null;
 
-	$: callbackUrl = $page.url.searchParams.get('callbackUrl') ?? '/admin/dashboard';
+	$: callbackUrl = $page.url.searchParams.get('callbackUrl') ?? '/admin';
+	$: console.log($page.url.searchParams.get('callbackUrl'));
 </script>
 
 <svelte:head>
@@ -31,6 +32,19 @@
 			>
 				<Github></Github>
 				Login to Github
+			</Button>
+			<Button
+				primary
+				gap="0.5rem"
+				padding="0.2rem 2rem"
+				onclick={() =>
+					signIn('google', {
+						redirectTo: callbackUrl,
+						authorizationParams: { prompt: 'login' }
+					})}
+			>
+				<Github></Github>
+				Login to Google
 			</Button>
 		{/if}
 		{#if $page.url.searchParams.get('error') === 'access_denied' || $page.error}

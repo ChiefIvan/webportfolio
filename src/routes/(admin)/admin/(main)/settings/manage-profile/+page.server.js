@@ -1,5 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
+import { ADMIN_EMAIL } from '$env/static/private';
 import { usersTable } from '$lib/server/db/schema';
 import { db } from '$lib/server/db';
 
@@ -13,7 +14,7 @@ export const actions = {
 		}
 
 		const data = await request.formData();
-		
+
 		const email = data.get('email')?.toString();
 		const name = data.get('Name')?.toString();
 		const alias = data.get('Alias')?.toString();
@@ -23,23 +24,7 @@ export const actions = {
 			await db
 				.update(usersTable)
 				.set({ name, alias, bio })
-				.where(eq(usersTable.email, sessionUser.email));
-
-			// await db
-			// 	.insert(usersTable)
-			// 	.values({
-			// 		email,
-			// 		name,
-			// 		alias,
-			// 		bio
-			// 	})
-			// 	.onDuplicateKeyUpdate({
-			// 		set: {
-			// 			name,
-			// 			alias,
-			// 			bio
-			// 		}
-			// 	});
+				.where(eq(usersTable.email, ADMIN_EMAIL));
 
 			return { success: true };
 		} catch (error) {
@@ -50,7 +35,7 @@ export const actions = {
 };
 
 export const load = async ({ params, locals }) => {
-	const session = await locals.getSession();
+	const session = await locals.auth();
 	const sessionUser = session.user;
 
 	if (!sessionUser.email) {
@@ -61,7 +46,7 @@ export const load = async ({ params, locals }) => {
 		const [user] = await db
 			.select()
 			.from(usersTable)
-			.where(eq(usersTable.email, sessionUser.email))
+			.where(eq(usersTable.email, ADMIN_EMAIL))
 			.limit(1);
 
 		return { user };

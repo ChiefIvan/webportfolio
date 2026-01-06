@@ -8,12 +8,14 @@
 	import SettingsIcon from '$lib/components/icons/settings.svelte';
 	import ManageBlogsIcon from '$lib/components/icons/manageBlogs.svelte';
 	import ManageProjectsIcon from '$lib/components/icons/manageProjects.svelte';
+	import AnalyticsIcon from '$lib/components/icons/analytics.svelte';
 	import Favicon from '$lib/assets/img/favicon.png';
 
 	let isExpanded = true;
 
 	const navContents = [
 		{ text: 'Dashboard', link: '/admin/dashboard', icon: DashboardIcon },
+		{ text: 'Analytics', link: '/admin/analytics', icon: AnalyticsIcon },
 		{ text: 'Manage Blogs', link: '/admin/manage-blogs', icon: ManageBlogsIcon },
 		{ text: 'Manage Projects', link: '/admin/manage-projects', icon: ManageProjectsIcon },
 		{ text: 'Settings', link: '/admin/settings', icon: SettingsIcon }

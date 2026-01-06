@@ -47,7 +47,6 @@
 				font-weight: 400;
 				font-style: italic;
 				opacity: 0.7;
-				/* margin-left: 0.5rem; */
 				color: var(--light-theme-color-4);
 			}
 		}

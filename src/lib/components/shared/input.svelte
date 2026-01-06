@@ -117,8 +117,8 @@
 			}
 
 			input {
-				border: 2px solid transparent;
-				border-bottom: 2px solid var(--light-theme-color-2);
+				border: 1px solid transparent;
+				border-bottom: 1px solid var(--light-theme-color-2);
 
 				&:focus {
 					border-bottom-color: var(--dark-theme-color-6);
@@ -126,14 +126,14 @@
 
 				&:focus + .placeholder,
 				&:not(:placeholder-shown) + .placeholder {
-					transform: translateY(-1.3rem);
+					transform: translateY(-1.4rem);
 				}
 			}
 
 			textarea {
 				min-height: 15rem;
 				resize: vertical;
-				border: 2px solid var(--light-theme-color-2);
+				border: 1px solid var(--light-theme-color-2);
 
 				&:focus {
 					border-color: var(--dark-theme-color-6);
@@ -141,7 +141,7 @@
 
 				&:focus + .placeholder,
 				&:not(:placeholder-shown) + .placeholder {
-					transform: translateY(-1.6rem);
+					transform: translateY(-1.7rem);
 				}
 			}
 
@@ -152,7 +152,6 @@
 				transition: all ease-in-out 200ms;
 				background-color: transparent;
 				outline: none;
-				font-family: 'Inter', Arial, Helvetica, sans-serif;
 
 				&:focus + .placeholder,
 				&:not(:placeholder-shown) + .placeholder {

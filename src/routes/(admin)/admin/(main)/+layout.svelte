@@ -27,7 +27,7 @@
 			flex: 1;
 
 			main {
-				padding-inline: 2.5rem;
+				padding-inline: 3rem;
 			}
 		}
 	}

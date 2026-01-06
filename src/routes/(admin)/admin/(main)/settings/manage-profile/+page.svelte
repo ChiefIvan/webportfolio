@@ -8,14 +8,20 @@
 	import UserIcon from '$lib/assets/img/user-icon.webp';
 	import Input from '$lib/components/shared/input.svelte';
 	import Edit from '$lib/components/icons/edit.svelte';
+	import Add from '$lib/components/icons/add.svelte';
 
 	const props = $props();
-	const session = $page.data.session;
 	const user = props.data.user;
+	const session = $page.data.session;
 
 	let isInputDisabled = $state(true);
 	let isOpenImgEdit = $state(false);
+	let isEduBackOpen = $state(false);
+	let createNewBackgroundData = $state(false);
+	let createNewExpData = $state(false);
 	let submitButtonTypeState = $state('button');
+	let backgroundData = $state({ backgroundData: [{}] });
+	let expData = $state({ expData: [{}] });
 	let cropState = $state({ x: 0, y: 0 });
 	let zoomState = $state(1);
 	let fileData = $state(null);
@@ -25,6 +31,27 @@
 	let email = $state(user.email ?? '');
 	let alias = $state(user.alias ?? '');
 	let bio = $state(user.bio ?? '');
+
+	const handleCreate = (data) => {
+		const key = Object.keys(data)[0];
+
+		if (key === 'backgroundData') {
+			createNewBackgroundData = true;
+		} else {
+			createNewExpData = true;
+		}
+	};
+
+	const handleReset = () => {
+		isInputDisabled = true;
+		createNewBackgroundData = false;
+		createNewExpData = false;
+
+		name = user.name ?? '';
+		email = user.email ?? '';
+		alias = user.alias ?? '';
+		bio = user.bio ?? '';
+	};
 </script>
 
 <svelte:head>
@@ -104,30 +131,26 @@
 							{user.name}
 						{:else}
 							{session.user.name}
-							<span>(Github)</span>
+							{#if session.provider}
+								<span>
+									({session.provider})
+								</span>
+							{/if}
 						{/if}
 					</h2>
 					<p>
 						{session.user.email}
-						<span>(Github)</span>
+						{#if session.provider}
+							<span>
+								({session.provider})
+							</span>
+						{/if}
 					</p>
 				</div>
 			</div>
 			<div class="button-wrapper">
 				{#if !isInputDisabled}
-					<Button
-						type="button"
-						padding="0.2rem 2rem"
-						onclick={() => {
-							isInputDisabled = true;
-							// reset input values
-							name = user.name ?? '';
-							email = user.email ?? '';
-							alias = user.alias ?? '';
-							bio = user.bio ?? '';
-						}}
-						danger>Cancel</Button
-					>
+					<Button type="button" padding="0.2rem 2rem" onclick={handleReset} danger>Cancel</Button>
 				{/if}
 				{#if isInputDisabled}
 					<Button
@@ -143,7 +166,7 @@
 				{/if}
 			</div>
 		</section>
-		<section class="basic-info-wrapper">
+		<section class="section-wrapper">
 			<h3>Basic Info</h3>
 			<div class="input-wrapper">
 				<Input
@@ -173,6 +196,8 @@
 					></Input>
 				</div>
 			</div>
+		</section>
+		<section class="section-wrapper">
 			<h3>Bio</h3>
 			<div class="textarea-wrapper">
 				<Input
@@ -183,6 +208,49 @@
 					oninput={(e) => (bio = e.target.value)}
 					inputValue={bio}
 				></Input>
+			</div>
+		</section>
+		<section class="section-wrapper">
+			<h3>Educational Background</h3>
+			{#if createNewBackgroundData}
+				<div class="new-data-wrapper">
+					<Input required inputName="Level" type="text" oninput={(e) => (email = e.target.value)}
+					></Input>
+					<Input required inputName="Degree" type="text" oninput={(e) => (email = e.target.value)}
+					></Input>
+					<Input required inputName="School" type="text" oninput={(e) => (email = e.target.value)}
+					></Input>
+				</div>
+			{/if}
+			<div class="add-button-wrapper">
+				<Button
+					outlined
+					disabled={isInputDisabled}
+					onclick={() => handleCreate(backgroundData)}
+					type="button"
+					width="100%"
+					padding="0.5rem 0"
+				>
+					<Add></Add>
+				</Button>
+			</div>
+		</section>
+		<section class="section-wrapper">
+			<h3>Experiences</h3>
+			{#if createNewExpData}
+				<div class="new-data-wrapper">Hello from expData</div>
+			{/if}
+			<div class="add-button-wrapper">
+				<Button
+					outlined
+					disabled={isInputDisabled}
+					onclick={() => handleCreate(expData)}
+					type="button"
+					width="100%"
+					padding="0.5rem 0"
+				>
+					<Add></Add>
+				</Button>
 			</div>
 		</section>
 	</form>
@@ -205,7 +273,8 @@
 				align-items: center;
 
 				div.image-wrapper {
-					width: 12rem;
+					min-width: 8rem;
+					max-width: 12rem;
 					border-radius: 50%;
 					overflow: hidden;
 					position: relative;
@@ -213,8 +282,7 @@
 					align-items: center;
 
 					img {
-						max-width: 100%;
-						height: inherit;
+						width: 100%;
 						aspect-ratio: 1 / 1;
 						object-fit: cover;
 						border-radius: inherit;
@@ -270,7 +338,7 @@
 			}
 		}
 
-		section.basic-info-wrapper {
+		section.section-wrapper {
 			h3 {
 				font-size: 1.1rem;
 				margin-top: 2rem;
@@ -278,6 +346,8 @@
 				font-weight: 600;
 				letter-spacing: -0.06rem;
 				color: var(--light-theme-color-6);
+
+				
 			}
 
 			div.input-wrapper {

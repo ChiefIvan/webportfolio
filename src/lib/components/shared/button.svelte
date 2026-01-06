@@ -1,26 +1,28 @@
 <script>
 	const props = $props();
-
-	let button;
-
-	export const bindRef = () => {
-		return button;
-	};
 </script>
 
 <button
-	bind:this={button}
 	type={props.type}
 	onclick={props.onclick}
-	class:ghost={props.ghost}
-	class:dropdown={props.dropdown}
-	class:custom={props.custom}
+	disabled={props.disabled}
 	class:primary={props.primary}
 	class:danger={props.danger}
+	class:ghost={props.ghost}
+	class:outlined={props.outlined}
+	class:custom={props.custom}
 	class:disabled={props.disabled}
-	class:active={props.active}
-	disabled={props.disabled}
-	style={`border-color: ${props.borderColor}; border-radius: ${props.radius}; gap: ${props.gap}; padding: ${props.padding}; width: ${props.width}; align-items: ${props.alignItems}; justify-content: ${props.justifyContent}; background-color: ${props.backgroundColor}; color: ${props.color};`}
+	style={`
+		border-color: ${props.borderColor}; 
+		border-radius: ${props.radius}; 
+		gap: ${props.gap}; 
+		padding: ${props.padding}; 
+		width: ${props.width}; 
+		align-items: ${props.alignItems}; 
+		justify-content: ${props.justifyContent}; 
+		background-color: ${props.backgroundColor}; 
+		color: ${props.color};
+	`}
 >
 	{@render props.children()}
 </button>
@@ -33,73 +35,76 @@
 		padding-block: 0.5rem;
 		padding-inline: 1rem;
 		transition: all ease-in-out 100ms;
-	}
+		color: var(--light-theme-color-6);
 
-	button:hover {
-		cursor: pointer;
-		opacity: 0.8;
-	}
+		&:hover {
+			cursor: pointer;
+			opacity: 0.8;
+		}
 
-	button:active {
-		opacity: 0.5;
-	}
-
-	button.active {
-		background-color: var(--dark-theme-color-6) !important;
-		color: var(--light-theme-color-1) !important;
-	}
-
-	button.ghost {
-		background-color: transparent;
-		border: 2px solid transparent;
-		font-weight: 900;
-		color: var(--dark-theme-color-5);
-		border: 1px solid transparent;
-	}
-
-	button.ghost:hover {
-		background-color: transparent;
-		border-color: transparent;
-	}
-
-	button.ghost.dropdown {
-		color: var(--light-theme-color-6) !important;
-		font-weight: 600;
-	}
-
-	button.ghost.dropdown.active {
-		background-color: var(--light-theme-color-2) !important;
-		color: var(--dark-theme-color-6) !important;
+		&:active {
+			opacity: 0.5;
+		}
 	}
 
 	button.primary {
 		background-color: #0053bd;
-		color: var(--light-theme-color-1);
-		border-color: transparent;
 		border-radius: 0.5rem;
 	}
 
 	button.danger {
 		background-color: #ff0000;
-		color: var(--light-theme-color-1);
 		border-radius: 0.5rem;
-		border-color: transparent;
+	}
+
+	button.ghost {
+		color: var(--dark-theme-color-5);
+		font-weight: 900;
+	}
+
+	button.outlined {
+		border: 1px solid var(--light-theme-color-2);
+
+		&:hover {
+			border-color: var(--dark-theme-color-6);
+		}
+	}
+
+	button.ghost,
+	button.outlined {
+		background-color: transparent;
 	}
 
 	button.custom {
 		background-image: linear-gradient(to top right, #0053bd, orangered);
+
+		&:hover {
+			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+		}
+	}
+
+	button.primary,
+	button.danger,
+	button.custom {
 		color: var(--light-theme-color-1);
+	}
+
+	button.ghost,
+	button.primary,
+	button.danger,
+	button.custom {
 		border: none;
 	}
 
-	button.custom:hover {
-		opacity: 0.8;
-		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-	}
-
 	button.disabled {
-		background-color: var(--light-theme-color-3);
-		color: var(--light-theme-color-1);
-		cursor: none;
+		opacity: 1;
+		cursor: default;
+		background-color: default;
+		color: var(--light-theme-color-2);
+		border: 1px solid var(--light-theme-color-2);
+
+		&:hover {
+			border-color: var(--light-theme-color-2);
+		}
 	}
 </style>
