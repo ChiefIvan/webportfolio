@@ -23,9 +23,6 @@
 					<Anchor nav link={`${settingsPathname}/site-settings`}>Site Settings</Anchor>
 				</NavItem>
 				<NavItem>
-					<Anchor nav link={`${settingsPathname}/notifications`}>Notifications</Anchor>
-				</NavItem>
-				<NavItem>
 					<Anchor nav link={`${settingsPathname}/manage-files`}>Manage Files</Anchor>
 				</NavItem>
 			</ul>
@@ -39,15 +36,16 @@
 <style>
 	div.settings-wrapper {
 		display: flex;
-		gap: 1.5rem;
-		padding: 1rem;
+		padding: 2rem;
 		position: relative;
+		column-gap: 5rem;
 
 		div.nav {
 			position: sticky;
-			top: 4.5rem;
-			height: 80dvh;
+			top: 6rem;
+			height: 85dvh;
 			flex: 0 0 200px;
+			border-right: 1px solid var(--light-theme-color-2);
 
 			nav {
 				margin-top: 2rem;

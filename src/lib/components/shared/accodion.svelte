@@ -20,7 +20,7 @@
 				<span>(current)</span>
 			{/if}
 		</h4>
-		<div class="icon-wrapper">
+		<div class="icon-wrapper" class:rotate={isOpen}>
 			<Dropdown />
 		</div>
 	</Button>
@@ -52,8 +52,14 @@
 		}
 
 		div.icon-wrapper {
-			text-align: end;
-			min-width: 5rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: transform ease-in-out 300ms;
+		}
+
+		div.icon-wrapper.rotate {
+			transform: rotate(180deg);
 		}
 
 		div.accordion-content {

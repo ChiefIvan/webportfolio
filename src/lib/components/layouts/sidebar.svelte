@@ -5,10 +5,12 @@
 	import NavItem from '../shared/navItem.svelte';
 	import Anchor from '../shared/anchor.svelte';
 	import DashboardIcon from '$lib/components/icons/dashboard.svelte';
-	import SettingsIcon from '$lib/components/icons/settings.svelte';
 	import ManageBlogsIcon from '$lib/components/icons/manageBlogs.svelte';
 	import ManageProjectsIcon from '$lib/components/icons/manageProjects.svelte';
 	import AnalyticsIcon from '$lib/components/icons/analytics.svelte';
+	import NotificationsIcon from '$lib/components/icons/notifications.svelte';
+	import LogsIcon from '$lib/components/icons/logs.svelte';
+	import SettingsIcon from '$lib/components/icons/settings.svelte';
 	import Favicon from '$lib/assets/img/favicon.png';
 
 	let isExpanded = true;
@@ -16,8 +18,10 @@
 	const navContents = [
 		{ text: 'Dashboard', link: '/admin/dashboard', icon: DashboardIcon },
 		{ text: 'Analytics', link: '/admin/analytics', icon: AnalyticsIcon },
+		{ text: 'Notifications', link: '/admin/notifications', icon: NotificationsIcon },
 		{ text: 'Manage Blogs', link: '/admin/manage-blogs', icon: ManageBlogsIcon },
 		{ text: 'Manage Projects', link: '/admin/manage-projects', icon: ManageProjectsIcon },
+		{ text: 'Activity Logs', link: '/admin/activity-logs', icon: LogsIcon },
 		{ text: 'Settings', link: '/admin/settings', icon: SettingsIcon }
 	];
 </script>
@@ -33,7 +37,7 @@
 		<nav>
 			<ul>
 				{#each navContents as nav}
-					<NavItem padding="0" width="100%">
+					<NavItem padding="0.1rem 0" width="100%">
 						<Anchor nav admin={true} icon={nav.icon} link={nav.link}>
 							{#if isExpanded}
 								<span transition:fade={{ duration: 300 }}> {nav.text} </span>
@@ -63,10 +67,10 @@
 
 <style>
 	div.sidebar-wrapper {
-		max-width: 52px;
+		max-width: 60px;
 		width: 100%;
 		height: 100dvh;
-		padding-inline: 0.5rem;
+		padding-inline: 0.65rem;
 		transition: all ease-in-out 300ms;
 		background-color: var(--light-theme-color-1);
 		position: sticky;
@@ -78,18 +82,18 @@
 
 		div.brand-wrapper {
 			padding-block: 0.4rem;
-			border-bottom: 1px solid var(--light-theme-color-2);
+			border-bottom: 1px solid var(--light-theme-color-3);
 			display: flex;
 			align-items: center;
 			flex-wrap: nowrap;
 
 			img {
-				max-width: 2.5rem;
+				max-width: 2.7rem;
 			}
 
 			span {
 				font-family: 'Inter', Arial, Helvetica, sans-serif;
-				font-size: 1.5rem;
+				font-size: 1.8rem;
 				letter-spacing: -0.15rem;
 				background-image: linear-gradient(to top right, #0053bd, orangered);
 				background-clip: text;
@@ -105,8 +109,8 @@
 
 			ul {
 				span {
-					/* font-size: 1rem; */
 					font-weight: 600;
+					font-size: 1rem;
 					text-wrap: nowrap;
 				}
 			}
@@ -172,6 +176,6 @@
 	}
 
 	div.sidebar-wrapper.expanded {
-		max-width: 15rem;
+		max-width: 16rem;
 	}
 </style>

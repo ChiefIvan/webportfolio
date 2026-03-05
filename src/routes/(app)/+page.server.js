@@ -3,6 +3,8 @@ import { db } from '$lib/server/db';
 import { usersTable } from '$src/lib/server/db/schema';
 import { ADMIN_EMAIL } from '$env/static/private';
 
+const { error } = console;
+
 export const load = async ({ params }) => {
 	try {
 		const [user] = await db
@@ -12,8 +14,8 @@ export const load = async ({ params }) => {
 			.limit(1);
 
 		return { user };
-	} catch (error) {
-		console.error('Fetch failed:', error);
+	} catch (e) {
+		error('Fetch failed:', e);
 		return { success: false, error: 'Failed to fetch user data!' };
 	}
 };

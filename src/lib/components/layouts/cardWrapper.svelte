@@ -4,7 +4,6 @@
 	import Anchor from '../shared/anchor.svelte';
 
 	const props = $props();
-	const { log, error } = console;
 
 	const handleMouseEvent = (event) => {
 		const wrapper = event.currentTarget;

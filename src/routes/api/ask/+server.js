@@ -25,8 +25,6 @@ export const POST = async ({ request }) => {
 		const data = await response.json();
 		if (!response.ok) throw new Error(data.error?.message || 'API error');
 
-		console.log(data.choices[0].message.content);
-
 		return new Response(JSON.stringify({ answer: data.choices[0].message.content }), {
 			status: 200,
 			headers: { 'Content-Type': 'application/json' }

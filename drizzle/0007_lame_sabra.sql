@@ -1,0 +1,1 @@
+ALTER TABLE `academics_table` DROP INDEX `academics_table_itemId_unique`;

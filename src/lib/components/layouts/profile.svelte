@@ -59,7 +59,6 @@
 
 <style>
 	div.profile-wrapper {
-		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -70,14 +69,14 @@
 			padding: 1rem;
 			width: 20rem;
 			border-radius: 1rem;
-			background-color: var(--light-theme-color-1);
-			box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
+			box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
 			position: absolute;
-			right: 0rem;
-			top: 3.5rem;
+			right: 1rem;
+			top: 4.5rem;
 			display: flex;
 			align-items: center;
 			flex-direction: column;
+			background: #fff;
 
 			div.image-wrapper {
 				max-width: 12rem;

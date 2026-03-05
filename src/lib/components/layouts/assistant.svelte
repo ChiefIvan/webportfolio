@@ -9,6 +9,8 @@
 	import Spinner from '$lib/components/icons/spinner.svelte';
 	import favicon from '$lib/assets/img/favicon.png';
 
+	const { error } = console;
+
 	let textareaRef = $state();
 	let ulRef = $state();
 	let buttonRef = $state();
@@ -71,7 +73,7 @@
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					model: 'I you to be here',
+					model: 'model here',
 					stream: false,
 					messages: [
 						{
@@ -93,7 +95,7 @@
 			messages = [...messages, { sender: 'Assistant', message: data.choices[0].message.content }];
 			scrollToBottom();
 		} catch (error) {
-			console.error('Error:', error);
+			error('Error:', error);
 			messages = [
 				...messages,
 				{
@@ -131,7 +133,7 @@
 					<div class="messages greet-wrapper">
 						<img src={favicon} alt="" />
 						<span> Hi!, let's talk. </span>
-						<p>Do you have anything in mind?</p>
+						<p>What do you want to know about my master?</p>
 					</div>
 				{/if}
 				<form onsubmit={handleSubmit}>
@@ -146,7 +148,7 @@
 							disabled={isLoading}
 							required
 						></textarea>
-						<label for="textarea">Send a message...</label>
+						<label for="textarea">Ask...</label>
 					</div>
 					<Button
 						bind:this={buttonRef}
@@ -182,6 +184,8 @@
 		bottom: 0rem;
 		z-index: 3;
 		display: flex;
+		max-width: 40rem;
+		width: 100%;
 
 		div.assistant-wrapper {
 			display: flex;
@@ -189,24 +193,21 @@
 			justify-content: end;
 			flex-wrap: wrap;
 			gap: 1rem;
+			width: inherit;
 			padding: 1rem;
-
-			@media (max-width: 576px) {
-				max-width: 40rem;
-				width: 100%;
-			}
 
 			div.message-wrapper {
 				padding: 0.5rem;
-				height: 35rem;
-				max-width: 40rem;
-				width: 100%;
+				width: inherit;
+				height: 40rem;
 				border-radius: 1rem;
-				background-color: #fff;
+				background-color: rgba(255, 255, 255, 0.5);
 				display: flex;
 				flex-direction: column;
-				row-gap: 1rem;
-				box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+				row-gap: 2rem;
+				box-shadow: 0 0 0 1px var(--light-theme-color-2);
+				backdrop-filter: blur(20px);
+				-webkit-backdrop-filter: blur(20px);
 
 				div.messages {
 					flex: 1 1 0%;
@@ -294,8 +295,8 @@
 							padding-block: 0.5rem;
 							scrollbar-width: none;
 							border-radius: 0.5rem;
-							background-color: transparent;
-							border: 1px solid var(--light-theme-color-3);
+							background-color: rgba(255, 255, 255, 0.5);
+							border: 1px solid rgba(0, 0, 0, 0.2);
 							outline-color: var(--dark-theme-color-2);
 							max-height: 10rem;
 						}
@@ -308,7 +309,7 @@
 							color: var(--light-theme-color-6);
 							user-select: none;
 							-webkit-user-select: none;
-							z-index: -1;
+							z-index: 1;
 						}
 
 						label:hover {
@@ -320,7 +321,6 @@
 					textarea:not(:placeholder-shown) + label {
 						transform: translatey(-2rem);
 						font-size: 0.7rem !important;
-						/* margin-left: 0.2rem; */
 					}
 				}
 			}

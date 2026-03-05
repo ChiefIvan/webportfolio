@@ -9,22 +9,24 @@
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"format": "prettier --write .",
-		"lint": "prettier --check ."
+		"lint": "prettier --check .",
+		"db:migrate": "node src/lib/server/db/migrate.js"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^4.0.0",
-		"@sveltejs/kit": "^2.16.0",
+		"@sveltejs/kit": "^2.53.2",
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
-		"drizzle-kit": "^0.31.7",
+		"drizzle-kit": "^0.31.9",
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
-		"svelte": "^5.0.0",
+		"svelte": "^5.53.5",
 		"tsx": "^4.20.6",
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
 		"@auth/core": "^0.41.1",
 		"@auth/sveltekit": "^1.11.1",
+		"@dnd-kit-svelte/svelte": "^0.1.6",
 		"@iconify-json/logos": "^1.2.9",
 		"@iconify-json/simple-icons": "^1.2.49",
 		"@iconify/svelte": "^5.0.1",

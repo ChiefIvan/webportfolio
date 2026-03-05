@@ -1,41 +1,55 @@
 <script>
-	const props = $props();
+	const {
+		type = 'button',
+		onclick = () => {},
+		disabled = false,
+		primary = false,
+		danger = false,
+		ghost = false,
+		outlined = false,
+		custom = false,
+		borderColor = 'transparent',
+		radius = '0.5rem',
+		gap = '0.5rem',
+		padding = '0.5rem 1rem',
+		width = 'auto',
+		alignItems = 'center',
+		justifyContent = 'center',
+		backgroundColor = 'transparent',
+		color = 'var(--light-theme-color-6)',
+		children = () => null
+	} = $props();
 </script>
 
 <button
-	type={props.type}
-	onclick={props.onclick}
-	disabled={props.disabled}
-	class:primary={props.primary}
-	class:danger={props.danger}
-	class:ghost={props.ghost}
-	class:outlined={props.outlined}
-	class:custom={props.custom}
-	class:disabled={props.disabled}
+	{type}
+	{onclick}
+	{disabled}
+	class:primary
+	class:danger
+	class:ghost
+	class:outlined
+	class:custom
+	class:disabled
 	style={`
-		border-color: ${props.borderColor}; 
-		border-radius: ${props.radius}; 
-		gap: ${props.gap}; 
-		padding: ${props.padding}; 
-		width: ${props.width}; 
-		align-items: ${props.alignItems}; 
-		justify-content: ${props.justifyContent}; 
-		background-color: ${props.backgroundColor}; 
-		color: ${props.color};
+		border-color: ${borderColor}; 
+		border-radius: ${radius}; 
+		gap: ${gap}; 
+		padding: ${padding}; 
+		width: ${width}; 
+		align-items: ${alignItems}; 
+		justify-content: ${justifyContent}; 
+		background-color: ${backgroundColor}; 
+		color: ${color};
 	`}
 >
-	{@render props.children()}
+	{@render children()}
 </button>
 
 <style>
 	button {
 		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding-block: 0.5rem;
-		padding-inline: 1rem;
 		transition: all ease-in-out 100ms;
-		color: var(--light-theme-color-6);
 
 		&:hover {
 			cursor: pointer;
@@ -48,12 +62,12 @@
 	}
 
 	button.primary {
-		background-color: #0053bd;
+		background-color: #0053bd !important;
 		border-radius: 0.5rem;
 	}
 
 	button.danger {
-		background-color: #ff0000;
+		background-color: #ff0000 !important;
 		border-radius: 0.5rem;
 	}
 
@@ -63,7 +77,7 @@
 	}
 
 	button.outlined {
-		border: 1px solid var(--light-theme-color-2);
+		border: 1px solid var(--light-theme-color-2) !important;
 
 		&:hover {
 			border-color: var(--dark-theme-color-6);
@@ -86,7 +100,7 @@
 	button.primary,
 	button.danger,
 	button.custom {
-		color: var(--light-theme-color-1);
+		color: var(--light-theme-color-1) !important;
 	}
 
 	button.ghost,
@@ -100,11 +114,7 @@
 		opacity: 1;
 		cursor: default;
 		background-color: default;
-		color: var(--light-theme-color-2);
-		border: 1px solid var(--light-theme-color-2);
-
-		&:hover {
-			border-color: var(--light-theme-color-2);
-		}
+		color: var(--light-theme-color-2) !important;
+		border: 1px solid var(--light-theme-color-2) !important;
 	}
 </style>

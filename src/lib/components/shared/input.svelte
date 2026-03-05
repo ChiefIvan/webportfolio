@@ -4,7 +4,6 @@
 	import Button from './button.svelte';
 	import Sign from './sign.svelte';
 	import Delete from '$lib/components/icons/delete.svelte';
-	import { text } from '@sveltejs/kit';
 
 	const dispatch = createEventDispatcher();
 
@@ -13,23 +12,7 @@
 
 <div class="input-wrapper">
 	<div class="input" class:textarea={props.textarea}>
-		{#if !props.textarea}
-			<input
-				placeholder=""
-				required={props.required}
-				id={props.inputName}
-				name={props.inputName}
-				type={props.inputType}
-				class:danger={props.danger}
-				class:disabled={props.disabled}
-				class:password={props.password}
-				oninput={props.oninput}
-				value={props.inputValue}
-				style={`font-weight: ${props.fontWeight}`}
-				disabled={props.disabled}
-				autocomplete="off"
-			/>
-		{:else}
+		{#if props.textarea}
 			<textarea
 				placeholder=""
 				required={props.required}
@@ -41,6 +24,23 @@
 				style={`font-weight: ${props.fontWeight}`}
 				disabled={props.disabled}
 			></textarea>
+		{:else}
+			<input
+				placeholder=""
+				required={props.required}
+				id={props.inputName}
+				name={props.inputName}
+				type={props.inputType}
+				class:danger={props.danger}
+				class:disabled={props.disabled}
+				class:password={props.password}
+				oninput={props.oninput}
+				value={props.inputValue}
+				checked={props.checked}
+				style={`font-weight: ${props.fontWeight}`}
+				disabled={props.disabled}
+				autocomplete="off"
+			/>
 		{/if}
 		<label
 			class="placeholder"
@@ -134,6 +134,7 @@
 				min-height: 15rem;
 				resize: vertical;
 				border: 1px solid var(--light-theme-color-2);
+				border-radius: 0.5rem;
 
 				&:focus {
 					border-color: var(--dark-theme-color-6);
@@ -152,18 +153,51 @@
 				transition: all ease-in-out 200ms;
 				background-color: transparent;
 				outline: none;
+				-webkit-appearance: none;
+				appearance: none;
 
-				&:focus + .placeholder,
-				&:not(:placeholder-shown) + .placeholder {
+				&:not([type='checkbox']):focus + .placeholder,
+				&:not([type='checkbox']):not(:placeholder-shown) + .placeholder {
 					font-size: 0.6rem !important;
 					padding-left: 0.3rem;
 				}
+
+				&:focus:not([type='checkbox']) + .placeholder {
+					color: var(--dark-theme-color-6);
+				}
 			}
 
-			input:focus,
-			textarea:focus {
-				& + label.placeholder {
-					color: var(--dark-theme-color-6);
+			input[type='checkbox'] {
+				border: 1px solid var(--light-theme-color-3);
+				width: 1.5rem;
+				height: 1.5rem;
+				border-radius: 50%;
+
+				& + .placeholder {
+					transform: translateY(-1.7rem);
+				}
+
+				&::after {
+					content: '';
+					position: absolute;
+					inset: 0;
+					margin: auto auto auto 0.4rem;
+					width: 0.7rem;
+					height: 0.35rem;
+					transform: rotate(-45deg);
+					border-left: 2.5px solid transparent;
+					border-bottom: 2.5px solid transparent;
+					opacity: 0;
+					transition: opacity 300ms ease-in-out;
+				}
+
+				&:hover {
+					cursor: pointer;
+				}
+
+				&:checked::after {
+					border-color: var(--light-theme-color-6);
+					opacity: 1;
 				}
 			}
 
@@ -172,7 +206,7 @@
 				padding-left: 0.5rem;
 				transition: all ease-in-out 200ms;
 				z-index: -1;
-				font-weight: 600;
+				font-weight: 700;
 				user-select: none;
 				-webkit-user-select: none;
 			}
@@ -224,12 +258,5 @@
 			column-gap: 0.2rem;
 			z-index: 1;
 		}
-
-		/* & div.input:focus-within label.placeholder,
-    input[type="search"]:not(:placeholder-shown) + label.placeholder {
-      transform: translatey(-1.1rem) !important;
-      font-size: 0.6rem !important;
-      padding-left: 0.3rem;
-    } */
 	}
 </style>

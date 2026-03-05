@@ -18,26 +18,30 @@ export async function load({ params, request }) {
 				degree: 'Bachelor of Science in Information Technology Major in Business Analytics',
 				school: 'Davao Oriental State University (DOrSU)',
 				address: 'Guang-guang, Dahican, Mati City, Davao Oriental, Philippines, 8200',
-				academicYear: '2019 - 2023'
+				academicYear: '2019 - 2023',
+				id: 1
 			},
 			{
 				level: 'Senior High School',
 				degree: 'Computer System Servicing',
 				school: 'Lupon Vocation High School (LVHS)',
 				address: 'Kambing Baratua St., Lupon, Davao Oriental, Philippines, 8207',
-				academicYear: 'S.Y. 2018 - 2020'
+				academicYear: 'S.Y. 2018 - 2020',
+				id: 2
 			},
 			{
 				level: 'Secondary',
 				school: 'Lupon Vocation High School (LVHS)',
 				address: 'Kambing Baratua St., Lupon, Davao Oriental, Philippines, 8207',
-				academicYear: 'S.Y. 2014 - 2018'
+				academicYear: 'S.Y. 2014 - 2018',
+				id: 3
 			},
 			{
 				level: 'Elementary',
 				school: 'Macangao Central Elementary School (MCES)',
 				address: 'Limbahan, Lupon, Davao Oriental, Philippines, 8207',
-				academicYear: 'S.Y. 2008 - 2014'
+				academicYear: 'S.Y. 2008 - 2014',
+				id: 4
 			}
 		],
 		experiences: [

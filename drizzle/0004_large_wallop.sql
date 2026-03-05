@@ -1,0 +1,1 @@
+ALTER TABLE `academics_table` RENAME COLUMN `current` TO `ongoing`;

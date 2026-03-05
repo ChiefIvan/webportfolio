@@ -55,20 +55,22 @@
 		border-color: var(--dark-theme-color-6);
 	}
 
-	a.nav.isScreenSmall,
-	a.nav.admin {
-		display: flex;
-		flex-wrap: nowrap;
-		align-items: center;
-		column-gap: 0.5rem;
-	}
-
 	a.nav.isScreenSmall {
 		border-bottom: 1px solid var(--light-theme-color-2);
 		padding-inline: 1rem;
 		color: var(--light-theme-color-6);
 		font-weight: 800;
 		letter-spacing: -0.03rem;
+		column-gap: 0.5rem;
+	}
+
+	a.isScreenSmall.active {
+		background-color: var(--light-theme-color-2);
+		border-radius: 0.5rem;
+	}
+
+	a.isScreenSmall:hover {
+		background-color: var(--light-theme-color-2);
 	}
 
 	a.nav.admin {
@@ -78,24 +80,26 @@
 		padding: 0.6rem 0.4rem;
 		width: 100%;
 		border-radius: 0.5rem;
+		column-gap: 0.8rem;
 	}
 
-	a.isScreenSmall.active {
-		color: var(--dark-theme-color-6);
-		background-color: var(--light-theme-color-2);
-		border-radius: 0.5rem;
+	a.nav.isScreenSmall,
+	a.nav.admin {
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
 	}
 
 	a.nav.admin.active {
-		color: #3890f4;
-		background-color: var(--light-theme-color-2);
-	}
-
-	a.isScreenSmall:hover {
-		background-color: var(--light-theme-color-2);
+		background-color: rgba(0, 0, 0, 0.05);
 	}
 
 	a.nav.admin:hover {
-		background-color: #eaeaea;
+		background-color: rgba(0, 0, 0, 0.025);
+	}
+
+	a.nav.admin.active,
+	a.isScreenSmall.active {
+		color: #8080ff;
 	}
 </style>

@@ -26,8 +26,7 @@
 	import Html from '$lib/components/icons/html.svelte';
 	import Css from '$lib/components/icons/css.svelte';
 	import Icones from '$lib/components/icons/icones.svelte';
-
-	const { log, error } = console;
+	import Acad from '$src/lib/components/shared/acad.svelte';
 
 	const props = $props();
 	let user = props.data;
@@ -40,7 +39,7 @@
 <div class="section-wrapper">
 	<section>
 		<h2>Personal Info</h2>
-		<div class="personal-info-wrapper">
+		<div class="data-wrapper">
 			<p>
 				{#if user && user.bio}
 					{user.bio}
@@ -52,30 +51,10 @@
 	</section>
 	<section>
 		<h2>Academic Background</h2>
-		{#if user && user.academics}
-			{#each user.academics as academic (academic)}
-				<div class="personal-info-wrapper academic-info-wrapper">
-					<h3>{academic.level}</h3>
-					<span>:</span>
-					<div class="edu-details-wrapper">
-						<h4>{academic.school}</h4>
-						{#if academic.degree}
-							<p>{academic.degree}</p>
-						{/if}
-						<p>{academic.address}</p>
-						<p>({academic.academicYear})</p>
-					</div>
-				</div>
-			{/each}
-		{:else}
-			<div class="personal-info-wrapper">
-				<p>No background available!</p>
-			</div>
-		{/if}
+		<Acad academics={user.academics} />
 	</section>
-
 	<section>
-		<h2>Work Experiences At</h2>
+		<h2>Work Experiences</h2>
 		{#if user && user.experiences}
 			{#each user.experiences as experience (experience)}
 				<Accodion title={experience.title} isCurrent={experience.isCurrent}>
@@ -85,12 +64,11 @@
 				</Accodion>
 			{/each}
 		{:else}
-			<div class="personal-info-wrapper">
+			<div class="data-wrapper">
 				<p>No experiences available!</p>
 			</div>
 		{/if}
 	</section>
-
 	<section>
 		<h2>Technology Stack</h2>
 		<div class="table-wrapper">
@@ -149,7 +127,7 @@
 	@media (max-width: 768px) {
 		div.section-wrapper {
 			section {
-				div.personal-info-wrapper {
+				div.data-wrapper {
 					padding-inline: 0 !important;
 					gap: 3rem !important;
 				}
@@ -160,7 +138,7 @@
 	@media (max-width: 576px) {
 		div.section-wrapper {
 			section {
-				div.personal-info-wrapper {
+				div.data-wrapper {
 					gap: 1rem !important;
 				}
 			}
@@ -186,36 +164,6 @@
 				margin-bottom: 1rem;
 			}
 
-			div.personal-info-wrapper {
-				padding-inline: 1rem;
-				display: flex;
-				column-gap: 5rem;
-
-				p {
-					color: var(--light-theme-color-6);
-				}
-			}
-
-			div.academic-info-wrapper {
-				h3 {
-					flex: 0.3;
-					font-size: 1rem;
-					font-style: italic;
-					font-weight: 600;
-					letter-spacing: -0.06rem;
-					color: var(--light-theme-color-6);
-				}
-
-				span {
-					font-weight: 900;
-				}
-
-				div.edu-details-wrapper {
-					flex: 1;
-				}
-			}
-
-			h4,
 			th {
 				color: var(--light-theme-color-6);
 				font-family: 'RobotoCondensed', Arial, Helvetica, sans-serif;

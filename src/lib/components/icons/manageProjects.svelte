@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 512 512"
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 512 512"
 	><!-- Icon from Siemens Industrial Experience Icons by Siemens AG - https://github.com/siemens/ix-icons/blob/main/LICENSE.md --><path
 		fill="currentColor"
 		fill-rule="evenodd"

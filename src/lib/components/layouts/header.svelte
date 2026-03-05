@@ -143,6 +143,7 @@
 		backdrop-filter: blur(5px);
 		-webkit-backdrop-filter: blur(5px);
 		transition: border-bottom 300ms;
+		border-bottom: 1px solid var(--light-theme-color-1);
 
 		div.nav-content-wrapper,
 		div.nav-content-wrapper-mobile {
@@ -232,6 +233,6 @@
 		align-items: center;
 		justify-content: flex-end;
 		background-color: rgba(255, 255, 255, 0.1);
-		height: 48.5px;
+		height: 51.38px;
 	}
 </style>

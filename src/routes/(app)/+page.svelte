@@ -16,7 +16,7 @@
 	let isOffersExpanded = $state(false);
 
 	const props = $props();
-	const user = props.data.user;
+	const user = props.data.user ?? {};
 	const session = $page.data.session;
 	const cardItems = [
 		{
@@ -62,8 +62,8 @@
 			<img src={user.img ?? UserIcon} alt="" />
 		</div>
 		<div class="info-wrapper iw1">
-			<h1>{user.name}</h1>
-			<p>({user.alias})</p>
+			<h1>{user.name ?? 'No Name'}</h1>
+			<p>({user.alias ?? 'No Alias'})</p>
 		</div>
 		<div class="info-wrapper iw2">
 			<p>I'm a Software Developer and Designer specializing User Experience and Performance</p>

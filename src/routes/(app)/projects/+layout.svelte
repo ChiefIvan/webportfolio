@@ -61,7 +61,7 @@
 			const raw = sessionStorage.getItem(STORAGE_KEY);
 			if (raw) JSON.parse(raw).forEach(([k, v]) => positions.set(k, v));
 		} catch (e) {
-			console.warn('failed to parse saved scroll positions', e);
+			console.error('failed to parse saved scroll positions', e);
 		}
 	});
 
